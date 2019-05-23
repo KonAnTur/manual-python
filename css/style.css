@@ -1,0 +1,130 @@
+
+h3 {
+    font-family: 'Comfortaa', cursive;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #333333;
+}
+
+h2 {
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #333333;
+}
+
+h1 {
+    font-family: 'Comfortaa', cursive;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #333333;
+}
+
+p {
+    font-family: 'Didact Gothic', sans-serif;
+    color:#555;
+    font-size: 14px;
+    line-height:18px;
+}
+pre {
+    font-family: 'Didact Gothic', sans-serif;
+    color:#555;
+    font-size: 14px;
+    line-height:18px;
+}
+
+.header-h1 h1 {
+    position: relative;
+    padding-bottom: .5rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: #000000;
+}
+
+.header-h1 h1::before {
+    content: "";
+    position: absolute;
+    border-bottom: 2px solid #000000;
+    bottom: .25rem;
+    left: 50%;
+    width: 50%;
+    transform: translateX(-50%);
+    transition-duration: 0.3s;
+}
+.header-h1 h1:hover:before {
+    width: 100%;
+}
+
+.header-h1 h1::after {
+    content: "";
+    position: absolute;
+    border-bottom: 2px solid #000000;
+    bottom: 0;
+    left: 50%;
+    width: 25%;
+    transform: translateX(-50%);
+    transition-duration: 0.3s;
+}
+
+.header-h1 h1:hover:after {
+    width: 100%;
+}
+
+.header-h1-left h1 {
+    text-align: left;
+}
+
+.header-h1-left h1::before,
+.header-h1-left h1::after {
+    left: 0;
+    transform: translateX(0);
+}
+
+.header-h1-right h1 {
+    text-align: right;
+}
+
+.header-h1-right h1::before,
+.header-h1-right h1::after {
+    left: unset;
+    right: 0;
+    transform: translateX(0);
+}
+
+/*.card{
+    padding: 5px;
+    box-shadow: 
+        0px 0px 0px 2px black;
+}*/
+
+.red{
+    color: red;
+}
+
+p {
+    margin-top: 0em;
+    margin-bottom: 0.5em;
+}
+
+.code {
+    background-color: whitesmoke;
+    border: 1px solid whitesmoke;
+    padding: 2px;
+}
+
+.m-t{
+    margin-top: 15px;
+}
+.text-in-card{
+    margin-left: 25px;
+}
