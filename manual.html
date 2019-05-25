@@ -176,6 +176,152 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-6">
+                    <h2>2. Типы данных:</h2>
+                    <h3>
+                        <b>2.1 Числа (включая booleans):</b> 
+                        <span class="code">int, bool, float, complex</span>
+                    </h3>
+                    <div class="text-in-card">
+                        <p>
+                            В Python есть 3 числовых типа:
+                            <ul>
+                                <li>int - Integer, целые числа.
+                                    <ul>
+                                        <li>
+                                            bool - Boolean, логический тип данных, 
+                                            принимает значения True или False, которые можно заменить на 1 и 0.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>float - числа с плавающей точкой, аналог вещественных чисел.</li>
+                                <li>complex - комплексные числа.</li>
+                            </ul>
+                        </p>
+                        <p>
+                            Примеры:
+                            <pre class="code">a=-177463 #int<br>q = True #bool<br>b=-35.59 #float<br>c=35e3 #== 35000 float<br>w_1=5+6j #complex<br>w_2=3-2j #complex<br>w_1*w_2==27+8j</pre>
+                        </p>
+                    </div>
+                    <h3>
+                        <b>2.2 Строки и их методы:</b> 
+                        <span class="code">'...', "..."</span>
+                    </h3>
+                    <div class="text-in-card">
+                        <p>
+                            Помимо чисел, Python может манипулировать строками, 
+                            которые могут быть определены несколькими способами. 
+                            Они могут быть заключены в одинарные кавычки ('...')<span class="code">name_1 = 'John'</span>
+                            или двойные кавычки ("...") <span class="code">name_2 = "John"</span>, разницы в этих 2-х определениях нет.
+                        </p>
+                        <p>
+                            Символ \ экранирует кавычки, чтобы они тоже 
+                            отображались в строке <span class="code">string_eg = 'doesn\'t'</span>. 
+                            А символ <span class="code">\n</span> переносит строку на новую строчку.
+                        </p>
+                        <p>
+                            Строки могут быть проиндексированы, причем первый символ имеет индекс 0.
+                            Нет отдельного типа символов; символ - это просто строка.
+                            Можно индексировать строку и с конца, но тогда начать нужно с -1. 
+                            В дополнение к индексации, поддерживаются срезы, позволяющие получить набор символов из начальной строки.
+                            <br>Примеры:
+                            <pre class="code">word = 'Python'<br>word[0] == 'P'<br>word[5] == 'n'<br>word[-1] == 'n'<br>word[-2] == 'o'<br>word[0:2] == 'Py' # это срез.</pre>
+                        </p>
+                        <p>
+                            Строки так же можно складывать <span class="code">'J'+'ython' == 'Jython'</span> или умножать <span class="code">3 * 'J' == 'JJJ'</span>.
+                        </p>
+                        <p>
+                            Методы для работы со строками:
+                            <ul>
+                                <li>
+                                    Метод strip() удаляет все пробелы в начале и в конце строки.
+                                    <br><span class="code">strip(" Python ") == "Python"</span>
+                                </li>
+                                <li>
+                                    len() возвращает длину строки.
+                                    <br><span class="code">len("Python") == 6</span>
+                                </li>
+                                <li>
+                                    Метод lower() возвращает строку в нижнем регистре.
+                                    <br><span class="code">"PyThon".lower() == 'python'</span>
+                                </li>
+                                <li>
+                                    Метод upper() возвращает строку в верхнем регистре.
+                                    <br><span class="code">"PyThon".upper() == 'PYTHON'</span>
+                                </li>
+                                <li>
+                                    Метод replace() заменяет строку другой строкой.
+                                    <br><span class="code">"Python".replace('P', 'J') == 'Jython'</span>
+                                </li>
+                                <li>
+                                    Метод split() разбивает строку на подстроки, 
+                                    если он находит экземпляры разделителя. Если разделитель не указан, 
+                                    то разбивает по символам.
+                                    <br><span class="code">"Hello, World".split(',') == ['Hello', ' World!']</span>
+                                    <br><span class="code">"Python".split() == ['P', 'y', 't', 'h', 'o', 'n']</span>
+                                </li>
+                                <li>
+                                    Метод capitalize() преобразует первый символ в верхний регистр.
+                                    <br><span class="code">'low letter at the beginning'.capitalize() == 'Low letter at the beginning'</span>
+                                </li>
+                                <li>
+                                    Метод count() возвращает количество раз, когда указанная строка встречается в начальной строке.
+                                    <br><span class="code">'low letter at the beginning'.count('t') == 4</span>
+                                </li>
+                                <li>
+                                    Метод find() ищет в строке указанную подстроку и возвращает позицию, где она была найдена.
+                                    <br><span class="code">'Hello, welcome to my world'.find('welcome') == 7</span>
+                                </li>
+                                <li>
+                                    Метод title() преобразует первый символ каждого слова 
+                                    (наборы символов разделённые пробелом) в верхний регистр.
+                                    <br><span class="code">'Welcome to my world'.title() == 'Welcome To My World'</span>
+                                </li>
+                                <li>
+                                    Метод join() объединяет элементы кортежа (передаваемого аргументом), 
+                                    разделяя их строкой к которой мы этот метот и применяем.
+                                    <br><span class="code">my_tuple = ('John', 'Peter', 'Vicky')</span>
+                                    <br><span class="code">', '.join(my_tuple) == 'John, Peter, Vicky'</span>
+                                </li>
+                                <li>
+                                    Метод isalpha() возвращает True если все символы в строке являются буквами.
+                                    <br><span class="code">'CompanyX'.isalpha() == True</span>
+                                    <br><span class="code">'Company33X'.isalpha() == False</span>
+                                </li>
+                                <li>
+                                    Метод isdecimal() возвращает True если все символы в строке являются цифрами.
+                                    <br><span class="code">'1234'.isdecimal() == True</span>
+                                    <br><span class="code">'12fff34'.isdecimal() == False</span>
+                                </li>
+                            </ul>
+                        </p>
+                        <p>
+                            В строки можно вставлять аргументы если перед строкой поставить f :
+                            <pre class="code">year = 2018<br>event = 'conference'<br>f'Results of the {year} {event}' == 'Results of the 2018 conference'</pre>
+                        </p>
+                        <p>
+                            С помощью метода str() в струку можно преобразовывать другие типы данных: 
+                            <span class="code">str(5) == '5'</span>
+                            А метод repr() делает строки так как они записаны: 
+                            <pre class="code">a = 10 * 3.25<br>b = 200 * 200<br>repr((a, b, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"</pre>
+                        </p>
+                    </div>
+                    <h3>
+                        <b>2.3 Списки и их методы:</b> 
+                        <span class="code">[...]</span>
+                    </h3>
+                    <div class="text-in-card">
+                        <p>
+                            Python знает несколько составных типов данных, 
+                            используемых для группировки. Наиболее универсальным является 
+                            список, который определяется как набор элементов, разделенных запятыми, 
+                            в квадратных скобках <span class="code">squares = [1, 4, 9, 16, 25]</span>. 
+                            Список может содержать элементы разных типов, 
+                            но обычно все эти элементы имеют один и тот же тип.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

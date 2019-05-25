@@ -8,6 +8,7 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #333333;
+    line-height: 1.5;
 }
 
 h2 {
@@ -30,12 +31,26 @@ h1 {
     color: #333333;
 }
 
+ul{
+    font-family: 'Didact Gothic', sans-serif;
+    color:#555;
+    font-size: 14px;
+    line-height:18px;
+    margin: 0;
+    padding-left: 18px;
+}
+
+li{
+    list-style-type: disc;
+}
+
 p {
     font-family: 'Didact Gothic', sans-serif;
     color:#555;
     font-size: 14px;
     line-height:18px;
 }
+
 pre {
     font-family: 'Didact Gothic', sans-serif;
     color:#555;
