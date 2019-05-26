@@ -4,3 +4,4 @@ Cheat Sheet by Python. Here is a summary of both standard python tricks and some
 
 * Operators 
 * Data types
+* Logical operators 
