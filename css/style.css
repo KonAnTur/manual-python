@@ -143,3 +143,6 @@ p {
 .text-in-card{
     margin-left: 25px;
 }
+pre {
+    margin:0;
+}

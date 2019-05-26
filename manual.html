@@ -175,151 +175,461 @@
                             </p>
                         </div>
                     </div>
+                    <h2>3. Логические операторы:</h2>
+                    <div class="card">
+                        <h3><b>3.1 Оператор ветвления:</b> <span class="code">if</span></h3>
+                        <div class="text-in-card">
+                            <p>
+                                Оператор условного выбора ветви Python-программы. 
+                                Его можно использовать для направления выполнения программы по двум различным ветвям.
+                                Чтобы написать несколько условий ветвления нужно использовать конструкцию elif, 
+                                слово else используется если условие не подходит. Синтаксис:
+                                <pre class="code">number = 15<br>conclusion = ''<br><br>if number < 0:<br>    conclusion = 'Number is less than zero'<br>elif number == 0:<br>    conclusion = 'Number equals to zero'<br> elif number < 1:<br>    conclusion = 'Number is greater than zero but less than one'<br>else:<br>    conclusion = 'Number bigger than or equal to one'</pre>
+                            </p>
+                        </div>
+                        <h3><b>3.2 Цикл for (и функция range()):</b> <span class="code">for, range()</span></h3>
+                        <div class="text-in-card">
+                            <p>
+                                Оператор Python for перебирает элементы любой последовательности 
+                                (списка или строки) в том порядке, что они появляются в последовательности. 
+                                А функция, range(x,y,z) создаёт массив из чисел от x до y c шагом z 
+                                (если аргумент только 1 то от 0 до этого аргумента).
+                                <br>Например:
+                                <pre class="code">for number in range(5):<br>    iterated_numbers.append(number)<br><br>assert iterated_numbers == [0, 1, 2, 3, 4]</pre>
+                            </p>
+                        </div>
+                        <h3><b>3.3 Цикл while:</b> <span class="code">while</span></h3>
+                        <div class="text-in-card">
+                            <p>
+                                Цикл while выполняется до тех пор, пока условие остается верным. 
+                                <br>Например:
+                                <pre class="code">number = 2<br>power = 5<br><br>result = 1<br><br>while power > 0:<br>    result *= number<br>    power -= 1</pre>
+                            </p>
+                        </div>
+                        <h3><b>3.4 Оператор try:</b> <span class="code">try, except, else, finally</span></h3>
+                        <div class="text-in-card">
+                            <p>
+                                Оператор try используется для обработки исключений. 
+                                Когда возникает ошибка или исключение, как мы ее называем, 
+                                Python обычно останавливается и генерирует сообщение-ошибку. 
+                                Эти исключения могут быть обработаны с помощью оператора try.
+                                Блок «try» позволяет проверить блок кода на наличие ошибок. 
+                                Блок «except» позволяет вам обработать ошибку. 
+                                Блок "else" позволяет выполнить код, если ошибок не было. 
+                                Блок "finally" позволяет выполнять код независимо от результата блоков try и except.
+                                <br>Например:
+                                <pre class="code">message = ''<br>try:<br>    print(not_existing_variable)  # noqa: F821<br>except NameError:<br>    message += 'Something went wrong.'<br>finally:<br>    message += 'The "try except" is finished.'</pre>
+                            </p>
+                        </div>
+                        <h3><b>3.5 Инструкция break:</b> <span class="code">break</span></h3>
+                        <div class="text-in-card">
+                            <p>
+                                Оператор break, выходит из внутреннего цикла «for» или «while».
+                                <br>Пример:
+                                <pre class="code">number_to_be_found = 42<br>number_of_iterations = 0<br><br>for number in range(100):<br>    if number == number_to_be_found:<br>        # Выходим из цикла.<br>        break<br>    else:<br>        number_of_iterations += 1
+                                </pre>
+                            </p>
+                        </div>
+                        <h3><b>3.6 Оператор continue:</b> <span class="code">continue</span></h3>
+                        <div class="text-in-card">
+                            <p>
+                                Оператор continue, прерывает настоящую итерацию 
+                                цикла и продолжает цикл со следующей итерации.
+                                <br>Пример:
+                                <pre class="code">for number in range(0, 10):<br>if number % 2 == 0:<br>    even_numbers.append(number)<br>    # Итерация препрывается и начинается новая<br>    continue<br>rest_of_the_numbers.append(number)</pre>
+                            </p>
+                        </div>
+                    </div>
+                    <h2>4. Функции:</h2>
+                    <div class="card">
+                        
+                    </div>
                 </div>
 
                 <div class="col-6">
                     <h2>2. Типы данных:</h2>
-                    <h3>
-                        <b>2.1 Числа (включая booleans):</b> 
-                        <span class="code">int, bool, float, complex</span>
-                    </h3>
-                    <div class="text-in-card">
-                        <p>
-                            В Python есть 3 числовых типа:
-                            <ul>
-                                <li>int - Integer, целые числа.
-                                    <ul>
-                                        <li>
-                                            bool - Boolean, логический тип данных, 
-                                            принимает значения True или False, которые можно заменить на 1 и 0.
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>float - числа с плавающей точкой, аналог вещественных чисел.</li>
-                                <li>complex - комплексные числа.</li>
-                            </ul>
-                        </p>
-                        <p>
-                            Примеры:
-                            <pre class="code">a=-177463 #int<br>q = True #bool<br>b=-35.59 #float<br>c=35e3 #== 35000 float<br>w_1=5+6j #complex<br>w_2=3-2j #complex<br>w_1*w_2==27+8j</pre>
-                        </p>
-                    </div>
-                    <h3>
-                        <b>2.2 Строки и их методы:</b> 
-                        <span class="code">'...', "..."</span>
-                    </h3>
-                    <div class="text-in-card">
-                        <p>
-                            Помимо чисел, Python может манипулировать строками, 
-                            которые могут быть определены несколькими способами. 
-                            Они могут быть заключены в одинарные кавычки ('...')<span class="code">name_1 = 'John'</span>
-                            или двойные кавычки ("...") <span class="code">name_2 = "John"</span>, разницы в этих 2-х определениях нет.
-                        </p>
-                        <p>
-                            Символ \ экранирует кавычки, чтобы они тоже 
-                            отображались в строке <span class="code">string_eg = 'doesn\'t'</span>. 
-                            А символ <span class="code">\n</span> переносит строку на новую строчку.
-                        </p>
-                        <p>
-                            Строки могут быть проиндексированы, причем первый символ имеет индекс 0.
-                            Нет отдельного типа символов; символ - это просто строка.
-                            Можно индексировать строку и с конца, но тогда начать нужно с -1. 
-                            В дополнение к индексации, поддерживаются срезы, позволяющие получить набор символов из начальной строки.
-                            <br>Примеры:
-                            <pre class="code">word = 'Python'<br>word[0] == 'P'<br>word[5] == 'n'<br>word[-1] == 'n'<br>word[-2] == 'o'<br>word[0:2] == 'Py' # это срез.</pre>
-                        </p>
-                        <p>
-                            Строки так же можно складывать <span class="code">'J'+'ython' == 'Jython'</span> или умножать <span class="code">3 * 'J' == 'JJJ'</span>.
-                        </p>
-                        <p>
-                            Методы для работы со строками:
-                            <ul>
-                                <li>
-                                    Метод strip() удаляет все пробелы в начале и в конце строки.
-                                    <br><span class="code">strip(" Python ") == "Python"</span>
-                                </li>
-                                <li>
-                                    len() возвращает длину строки.
-                                    <br><span class="code">len("Python") == 6</span>
-                                </li>
-                                <li>
-                                    Метод lower() возвращает строку в нижнем регистре.
-                                    <br><span class="code">"PyThon".lower() == 'python'</span>
-                                </li>
-                                <li>
-                                    Метод upper() возвращает строку в верхнем регистре.
-                                    <br><span class="code">"PyThon".upper() == 'PYTHON'</span>
-                                </li>
-                                <li>
-                                    Метод replace() заменяет строку другой строкой.
-                                    <br><span class="code">"Python".replace('P', 'J') == 'Jython'</span>
-                                </li>
-                                <li>
-                                    Метод split() разбивает строку на подстроки, 
-                                    если он находит экземпляры разделителя. Если разделитель не указан, 
-                                    то разбивает по символам.
-                                    <br><span class="code">"Hello, World".split(',') == ['Hello', ' World!']</span>
-                                    <br><span class="code">"Python".split() == ['P', 'y', 't', 'h', 'o', 'n']</span>
-                                </li>
-                                <li>
-                                    Метод capitalize() преобразует первый символ в верхний регистр.
-                                    <br><span class="code">'low letter at the beginning'.capitalize() == 'Low letter at the beginning'</span>
-                                </li>
-                                <li>
-                                    Метод count() возвращает количество раз, когда указанная строка встречается в начальной строке.
-                                    <br><span class="code">'low letter at the beginning'.count('t') == 4</span>
-                                </li>
-                                <li>
-                                    Метод find() ищет в строке указанную подстроку и возвращает позицию, где она была найдена.
-                                    <br><span class="code">'Hello, welcome to my world'.find('welcome') == 7</span>
-                                </li>
-                                <li>
-                                    Метод title() преобразует первый символ каждого слова 
-                                    (наборы символов разделённые пробелом) в верхний регистр.
-                                    <br><span class="code">'Welcome to my world'.title() == 'Welcome To My World'</span>
-                                </li>
-                                <li>
-                                    Метод join() объединяет элементы кортежа (передаваемого аргументом), 
-                                    разделяя их строкой к которой мы этот метот и применяем.
-                                    <br><span class="code">my_tuple = ('John', 'Peter', 'Vicky')</span>
-                                    <br><span class="code">', '.join(my_tuple) == 'John, Peter, Vicky'</span>
-                                </li>
-                                <li>
-                                    Метод isalpha() возвращает True если все символы в строке являются буквами.
-                                    <br><span class="code">'CompanyX'.isalpha() == True</span>
-                                    <br><span class="code">'Company33X'.isalpha() == False</span>
-                                </li>
-                                <li>
-                                    Метод isdecimal() возвращает True если все символы в строке являются цифрами.
-                                    <br><span class="code">'1234'.isdecimal() == True</span>
-                                    <br><span class="code">'12fff34'.isdecimal() == False</span>
-                                </li>
-                            </ul>
-                        </p>
-                        <p>
-                            В строки можно вставлять аргументы если перед строкой поставить f :
-                            <pre class="code">year = 2018<br>event = 'conference'<br>f'Results of the {year} {event}' == 'Results of the 2018 conference'</pre>
-                        </p>
-                        <p>
-                            С помощью метода str() в струку можно преобразовывать другие типы данных: 
-                            <span class="code">str(5) == '5'</span>
-                            А метод repr() делает строки так как они записаны: 
-                            <pre class="code">a = 10 * 3.25<br>b = 200 * 200<br>repr((a, b, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"</pre>
-                        </p>
-                    </div>
-                    <h3>
-                        <b>2.3 Списки и их методы:</b> 
-                        <span class="code">[...]</span>
-                    </h3>
-                    <div class="text-in-card">
-                        <p>
-                            Python знает несколько составных типов данных, 
-                            используемых для группировки. Наиболее универсальным является 
-                            список, который определяется как набор элементов, разделенных запятыми, 
-                            в квадратных скобках <span class="code">squares = [1, 4, 9, 16, 25]</span>. 
-                            Список может содержать элементы разных типов, 
-                            но обычно все эти элементы имеют один и тот же тип.
-                        </p>
+                    <div class="card">
+                        <h3>
+                            <b>2.1 Числа (включая booleans):</b> 
+                            <span class="code">int, bool, float, complex</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                В Python есть 3 числовых типа:
+                                <ul>
+                                    <li>int - Integer, целые числа.
+                                        <ul>
+                                            <li>
+                                                bool - Boolean, логический тип данных, 
+                                                принимает значения True или False, которые можно заменить на 1 и 0.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>float - числа с плавающей точкой, аналог вещественных чисел.</li>
+                                    <li>complex - комплексные числа.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                Примеры:
+                                <pre class="code">a=-177463 #int<br>q = True #bool<br>b=-35.59 #float<br>c=35e3 #== 35000 float<br>w_1=5+6j #complex<br>w_2=3-2j #complex<br>w_1*w_2==27+8j</pre>
+                            </p>
+                        </div>
+                        <h3>
+                            <b>2.2 Строки и их методы:</b> 
+                            <span class="code">'...', "..."</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Помимо чисел, Python может манипулировать строками, 
+                                которые могут быть определены несколькими способами. 
+                                Они могут быть заключены в одинарные кавычки ('...')<span class="code">name_1 = 'John'</span>
+                                или двойные кавычки ("...") <span class="code">name_2 = "John"</span>, разницы в этих 2-х определениях нет.
+                            </p>
+                            <p>
+                                Символ \ экранирует кавычки, чтобы они тоже 
+                                отображались в строке <span class="code">string_eg = 'doesn\'t'</span>. 
+                                А символ <span class="code">\n</span> переносит строку на новую строчку.
+                            </p>
+                            <p>
+                                Строки могут быть проиндексированы, причем первый символ имеет индекс 0.
+                               Нет отдельного типа символов; символ - это просто строка.
+                               Можно индексировать строку и с конца, но тогда начать нужно с -1. 
+                               В дополнение к индексации, поддерживаются срезы, позволяющие получить набор символов из начальной строки.
+                               <br>Примеры:
+                               <pre class="code">word = 'Python'<br>word[0] == 'P'<br>word[5] == 'n'<br>word[-1] == 'n'<br>word[-2] == 'o'<br>word[0:2] == 'Py' # это срез.</pre>
+                            </p>
+                            <p>
+                                Строки так же можно складывать <span class="code">'J'+'ython' == 'Jython'</span> или умножать <span class="code">3 * 'J' == 'JJJ'</span>.
+                            </p>
+                            <p>
+                                Методы для работы со строками:
+                                <ul>
+                                    <li>
+                                        Метод strip() удаляет все пробелы в начале и в конце строки.
+                                        <br><span class="code">strip(" Python ") == "Python"</span>
+                                    </li>
+                                    <li>
+                                        len() возвращает длину строки.
+                                        <br><span class="code">len("Python") == 6</span>
+                                    </li>
+                                    <li>
+                                        Метод lower() возвращает строку в нижнем регистре.
+                                        <br><span class="code">"PyThon".lower() == 'python'</span>
+                                    </li>
+                                    <li>
+                                        Метод upper() возвращает строку в верхнем регистре.
+                                        <br><span class="code">"PyThon".upper() == 'PYTHON'</span>
+                                    </li>
+                                    <li>
+                                        Метод replace() заменяет строку другой строкой.
+                                        <br><span class="code">"Python".replace('P', 'J') == 'Jython'</span>
+                                    </li>
+                                    <li>
+                                        Метод split() разбивает строку на подстроки, 
+                                        если он находит экземпляры разделителя. Если разделитель не указан, 
+                                        то разбивает по символам.
+                                        <br><span class="code">"Hello, World".split(',') == ['Hello', ' World!']</span>
+                                        <br><span class="code">"Python".split() == ['P', 'y', 't', 'h', 'o', 'n']</span>
+                                    </li>
+                                    <li>
+                                        Метод capitalize() преобразует первый символ в верхний регистр.
+                                        <br><span class="code">'low letter at the beginning'.capitalize() == 'Low letter at the beginning'</span>
+                                    </li>
+                                    <li>
+                                        Метод count() возвращает количество раз, когда указанная строка встречается в начальной строке.
+                                        <br><span class="code">'low letter at the beginning'.count('t') == 4</span>
+                                    </li>
+                                    <li>
+                                        Метод find() ищет в строке указанную подстроку и возвращает позицию, где она была найдена.
+                                        <br><span class="code">'Hello, welcome to my world'.find('welcome') == 7</span>
+                                    </li>
+                                    <li>
+                                        Метод title() преобразует первый символ каждого слова 
+                                        (наборы символов разделённые пробелом) в верхний регистр.
+                                        <br><span class="code">'Welcome to my world'.title() == 'Welcome To My World'</span>
+                                    </li>
+                                    <li>
+                                        Метод join() объединяет элементы кортежа (передаваемого аргументом), 
+                                        разделяя их строкой к которой мы этот метот и применяем.
+                                        <br><span class="code">my_tuple = ('John', 'Peter', 'Vicky')</span>
+                                        <br><span class="code">', '.join(my_tuple) == 'John, Peter, Vicky'</span>
+                                    </li>
+                                    <li>
+                                        Метод isalpha() возвращает True если все символы в строке являются буквами.
+                                        <br><span class="code">'CompanyX'.isalpha() == True</span>
+                                        <br><span class="code">'Company33X'.isalpha() == False</span>
+                                    </li>
+                                    <li>
+                                        Метод isdecimal() возвращает True если все символы в строке являются цифрами.
+                                        <br><span class="code">'1234'.isdecimal() == True</span>
+                                        <br><span class="code">'12fff34'.isdecimal() == False</span>
+                                    </li>
+                                </ul>
+                            </p>
+                            <p>
+                                В строки можно вставлять аргументы если перед строкой поставить f :
+                                <pre class="code">year = 2018<br>event = 'conference'<br>f'Results of the {year} {event}' == 'Results of the 2018 conference'</pre>
+                            </p>
+                            <p>
+                                С помощью метода str() в струку можно преобразовывать другие типы данных: 
+                                <span class="code">str(5) == '5'</span>
+                                А метод repr() делает строки так как они записаны: 
+                                <pre class="code">a = 10 * 3.25<br>b = 200 * 200<br>repr((a, b, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"</pre>
+                            </p>
+                        </div>
+                        <h3>
+                            <b>2.3 Списки и их методы:</b> 
+                            <span class="code">[...]</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Python знает несколько составных типов данных, 
+                                используемых для группировки. Наиболее универсальным является 
+                                список, который определяется как набор элементов, разделенных запятыми, 
+                                в квадратных скобках <span class="code">squares = [1, 4, 9, 16, 25]</span>. 
+                                Список может содержать элементы разных типов, 
+                                но обычно все эти элементы имеют один и тот же тип данных.
+                            </p>
+                            <p>
+                                Списки так же как и строки индексируются и срезаются:
+                                <pre class="code">squares = [1, 4, 9, 16, 25]<br>squares[0] == 1<br>squares[-3:] == [9, 16, 25]</pre>
+                            </p>
+                            <p>
+                                Списки также поддерживают такие операции, как конкатенация (сложение, склейка) 
+                                <br><span class="code">[1, 4, 9] + [36, 49, 64] == [1, 4, 9, 36, 49, 64]</span>
+                            </p>
+                            <p>
+                                Списки в отличии от строк являются изменяемыми:
+                                <pre class="code">cubes = [1, 8, 27, 65, 125]<br>cubes[3] = 64 #== [1, 8, 27, 64, 125] <br>cubes[1:2] = [1, 2] #== [1, 1, 1, 64, 125]</pre>
+                            </p>
+                            <p>
+                                С помощью метода append() можно добавить элемент в конец списка 
+                                <span class="code">[1, 8, 27, 64, 125].append(7 ** 3) == [1, 8, 27, 64, 125, 343]</span>.
+                                Можно создавать вложенные (многомерные списки) <span class="code">mixed_list == [['a', 'b', 'c'], [1, 2, 3]]</span>.
+                                Так же можно очистить список с помощью среза 
+                                <pre class="code">letters = ['a', 'b', 'f', 'g']<br> letters[:] = [] # == []</pre> 
+                            </p>
+                            <p>
+                                Методы для работы со списками:
+                                <ul>
+                                    <li>
+                                        Функция len() возвращает длину списка:
+                                        <br><span class="code">len(['a', 'b', 'c', 'd']) == 4</span>
+                                    </li>
+                                    <li>
+                                        Метод remove(x) удаляет первый элемент со значением x:
+                                        <br><span class="code">['orange', 'apple', 'pear'].remove('apple') == ['orange', 'pear']</span>
+                                    </li>
+                                    <li>
+                                        Метод insert(i, x) вставляет элемент x на позицию i:
+                                        <br><span class="code">['apple, 'orange'].insert(0, 'grape') == ['grape', 'apple, 'orange']</span>
+                                    </li>
+                                    <li>
+                                        Метод index(x, start, end) возвращает позицию первого 
+                                        вхождения элемента x начиная со start до end (не обязательные аргументы)
+                                        <pre class="code">[1,3,8,3,7].index(3, 2) == 3 <br>[1,3,8,3,7].index(3) == 1</pre>
+                                    </li>
+                                    <li>
+                                        Метод count(x) возвращает количество вхождений элемента x:
+                                        <br><span class="code">[3,5,7,2,4,3].count(3) == 2</span>
+                                    </li>
+                                    <li>
+                                        Метод copy() возвращает копию списка:
+                                        <br><span class="code">a = [3,6,3,3].copy() #a == [3,6,3,3]</span>
+                                    </li>
+                                    <li>
+                                        Метод reverse() возвращает "перевёрнутый" список:
+                                        <br><span class="code">[1,2,4,5].reverse() == [5,4,2,1]</span>
+                                    </li>
+                                    <li>
+                                        Метод sort(key=None, reverse=False) сортирует список 
+                                        (если нужно сортировать не цифры, то лучше прочитать подробнее)
+                                        <br><span class="code">[2,4,73,1,4,3].sort() == [1,2,3,4,4,73]</span>
+                                    </li>
+                                    <li>
+                                        Метод pop() удаляет последний элемент списка и возвращает его
+                                        <pre class="code">fruits == ['banana', 'kiwi', 'apple', 'banana']<br>fruits.pop() == 'banana'<br>fruits == ['banana', 'kiwi', 'apple']</pre>
+                                    </li>
+                                    <li>
+                                        Метод clear() удаляет список:
+                                        <br><span class="code">fruits.clear() == []</span>
+                                    </li>
+                                    <li>
+                                        Приписка del позволяет удалить элемент по его индексу:
+                                        <pre class="code">numbers = [-1, 1, 66.25, 333, 333, 1234.5]<br>del numbers[0]<br>numbers == [1, 66.25, 333, 333, 1234.5]</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                            <p>
+                                Можно автоматизировать создание списков, например с помощью цикла:
+                                <pre class="code">squares = []<br>for number in range(10):<br>squares.append(number ** 2)<br><br>assert squares == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</pre>
+                            </p>
+                            <p>
+                                С помощью лямбда функции: 
+                                <br><span class="code">squares = list(map(lambda x: x ** 2, range(10)))</span>
+                                <br>Или с помощью конструктора списков: 
+                                <br><span class="code">combinations = [(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]</span>
+                                <br>Так же можно применять функции в элементам списка: 
+                                <br><span class="code">abs_vector = [abs(x) for x in vector] #Применяем модуль ко всем элементам списка vector</span>
+                            </p>
+                        </div>
+                        <h3>
+                            <b>2.4 Кортежи:</b> 
+                            <span class="code">(...)</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Кортеж - это коллекция, которая упорядочена и неизменна. 
+                                В Python кортежи пишутся с круглые скобки.
+                            </p>
+                            <p>
+                                Кортежи индексируются:
+                                <pre class="code">fruits_tuple = ("apple", "banana", "cherry")<br>fruits_tuple[1] == "banana"</pre>
+                            </p>
+                            <p>
+                                Кортежи могут быть вложенными или пустыми: 
+                                <br><span class="code">nested_tuple == ((12345, 54321, 'hello!'), (1, 2, 3, 4, 5))</span>
+                                <br><span class="code">tuple == ()</span>
+                            </p>
+                            <p>
+                                Фунция len() возвращает длинну массива: <br><span class="code">len(("apple")) == 1</span>
+                            </p>
+                        </div>
+                        <h3>
+                            <b>2.5 Наборы и их методы:</b> 
+                            <span class="code">{...}</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Набор - это неупорядоченная и неиндексированная коллекция (Аналог множеств). 
+                                В Python наборы пишутся с помощью фигурных скобок. Наборы также поддерживают 
+                                математические операции, такие как объединение, пересечение, разность и 
+                                симметричная разница.
+                                <br><span class="code">fruits_set = {"apple", "banana", "cherry"}</span>
+                            </p>
+                            <p>
+                                Методы для работы с наборами:
+                                <ul>
+                                    <li>
+                                        С помощью конструкции in можно узнать есть ли указанный элемент в наборе:
+                                        <br><span class="code">"apple" in {"apple", "banana", "cherry"} == True</span>
+                                    </li>
+                                    <li>
+                                        С помощью функции len() можно узнать длинну набора:
+                                        <br><span class="code">len({"apple", "banana", "cherry"}) == 3</span>
+                                    </li>
+                                    <li>
+                                        С помощью метода add() можно добавить элемент в конец набора:
+                                        <br><span class="code">{"apple", "banana", "cherry"}.add("pineapple") == {"apple", "banana", "cherry", "pineapple"}</span>
+                                    </li>
+                                    <li>
+                                        Метод remove(x) позволяет удали элемент x:
+                                        <br><span class="code">{"apple", "banana", "cherry"}.remove("apple") == {"banana", "cherry"}</span>
+                                    </li>
+                                    <li>
+                                        С помощью метода set() мы можем разбить другой объект в набор, 
+                                        заметим что элементы в наборе не повторяются:
+                                        <br><span class="code">set('abracadabra') == {'a', 'r', 'b', 'c', 'd'}</span>
+                                    </li>
+                                    <li>
+                                        Мы можем найти разность наборов (удаляет повторяющиеся элементы):
+                                        <br><span class="code">{'a', 'r', 'b', 'c', 'd'} - {'a', 'l', 'c', 'z', 'm'} == {'r', 'b', 'd'}</span>
+                                    </li>
+                                    <li>
+                                        Операция объединения (|):
+                                        <br><span class="code">{'a', 'r', 'b', 'c', 'd'} | {'a', 'l', 'c', 'z', 'm'} == {'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}</span>
+                                    </li>
+                                    <li>
+                                        Операция пересечения (&):
+                                        <br><span class="code">{'a', 'r', 'b', 'c', 'd'} & {'a', 'l', 'c', 'z', 'm'} == {'a', 'c'}</span>
+                                    </li>
+                                    <li>
+                                        Операция симметричной разности (^):
+                                        <br><span class="code">{'a', 'r', 'b', 'c', 'd'} ^ {'a', 'l', 'c', 'z', 'm'} == {'r', 'd', 'b', 'm', 'z', 'l'}</span>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>
+                            <b>2.6 Словари:</b> 
+                            <span class="code">{ key:values }</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Словарь - это неупорядоченная, изменяемая и 
+                                индексируемая коллекция. В Python словари есть написано в 
+                                фигурных скобках, и они имеют ключи и значения.
+                                <pre class="code">fruits_dictionary = {<br>    'cherry': 'red',<br>    'apple': 'green',<br>    'banana': 'yellow',<br>}</pre>
+                            </p>
+                            <p>
+                                Что можно делать со словарями?
+                                <ul>
+                                    <li>
+                                        Можно искать значение по ключу:
+                                        <br><span class="code">fruits_dictionary['apple'] == 'green'</span>
+                                    </li>
+                                    <li>
+                                        Чтобы проверить, есть ли один ключ в словаре, 
+                                        используйте ключевое слово in.
+                                        <br><span class="code">'apple' in fruits_dictionary == True</span>
+                                    </li>
+                                    <li>
+                                        Можно изменить значение в ключе:
+                                        <br><span class="code">fruits_dictionary['apple'] = 'red'</span>
+                                    </li>
+                                    <li>
+                                        Можно добавить новый ключ со значением:
+                                        <br><span class="code">fruits_dictionary['pineapple'] = 'yellow'</span>
+                                    </li>
+                                    <li>
+                                        Функция list() возвращает множество ключей словаря:
+                                        <br><span class="code">list(fruits_dictionary) == ['cherry', 'apple', 'banana', 'pineapple']</span>
+                                    </li>
+                                    <li>
+                                        Функция sorted() возвращает отсортированное множество ключей:
+                                        <br><span class="code">sorted(fruits_dictionary) == ['apple', 'banana', 'cherry', 'pineapple']</span>
+                                    </li>
+                                    <li>
+                                        С помощью конструкции del можно удалить пару ключ-значение (удаляется по ключу):
+                                        <br><span class="code">del fruits_dictionary['pineapple']</span>
+                                    </li>
+                                    <li>
+                                        Можно составить словарь с помощью конструктора словарей:
+                                        <br><span class="code">dictionary_via_expression = {x: x**2 for x in (2, 4, 6)}</span>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>
+                            <b>2.7 Приведение типов:</b> 
+                            <span class="code">int(), float(), str()</span>
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Python является объектно-ориентированным языком, 
+                                и поэтому он использует классы для определения типов данных, включая его примитивные типы.
+                                Поэтому приведение в python выполняется с помощью функций конструктора:
+                                <ul>
+                                    <li>
+                                        int() - создает целое число из целочисленного типа, 
+                                        типа float (округляя к предыдущему целому числу) или строкового типа 
+                                        (при условии, что строка представляет собой целое число). Примеры:
+                                        <pre class="code">int(1) == 1<br>int(2.8) == 2<br>int('3') == 3</pre>
+                                    </li>
+                                    <li>
+                                        float() - создает число с плавающей точкой из целочисленного типа, 
+                                        типа float или строкового типа данных 
+                                        (При условии что строка это число с плавающей точкой или целое число). Примеры:
+                                        <pre class="code">float(1) == 1.0<br>float(2.8) == 2.8<br>float("3") == 3.0<br>float("4.2") == 4.2</pre>
+                                    </li>
+                                    <li>
+                                        str() - создает строку из множетсва типов данных, 
+                                        включая строки, целые числа и числа с плавающей точкой. Примеры:
+                                        <pre class="code">str("s1") == 's1'<br>str(2) == '2'<br>str(3.0) == '3.0'</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
