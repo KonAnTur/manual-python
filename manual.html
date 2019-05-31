@@ -423,7 +423,7 @@
                     <h2>9. Дополнения:</h2>
                     <div class="card">
                         <h3>9.1 Оператор "пропуск": <span class="code">pass</span></h3>
-                        <div class="text-in-code">
+                        <div class="text-in-card">
                             <p>
                                 Оператор pass ничего не делает. Он может использоваться, когда оператор 
                                 требуется синтаксически, но программа не требует никаких действий 
@@ -431,13 +431,178 @@
                             </p>
                         </div>
                         <h3>9.2 Генераторы: <span class="code">yield</span></h3>
-                        <div class="text-in-code">
+                        <div class="text-in-card">
                             <p>
-                                Оператор pass ничего не делает. Он может использоваться, когда оператор 
-                                требуется синтаксически, но программа не требует никаких действий 
-                                (Аналог return, только ничего не делает).
+                                Генератор - это функция, возвращающая подвид итератора, генерирующий значения.
+                                Итератор генератора — это объект, порождаемый функцией-генератором.
+                                <br>Выглядят функции-генераторы также как и обычные, но содержат 
+                                выражения с ключевым словом yield для последовательного генерирования значений, 
+                                которые могут быть использованы в циклах for in, либо их получения при помощи 
+                                функции next().
+                            </p>
+                            <p>
+                                На каждой <span class="code">yield</span> работа функции временно приостанавливается, при этом 
+                                сохраняется состояние исполнения, включая локальные переменные, 
+                                указатель на текущую инструкцию, внутренний стек и состояние обработки исключения. 
+                                При последующем обращении к итератору генератора (при вызовах его методов) функция 
+                                продолжает своё исполнение с места, на котором была приостановлена. 
+                                Этим функции-генераторы отличаются от обычных функций, при вызове которых 
+                                исполнение всякий раз начинается с начала.
+                                <br>Если функция достигает инструкции return, либо конца 
+                                (без указания упомянутой инструкции), возбуждается исключение StopIteration и 
+                                итератор исчерпывает себя.
+                                <pre class="code">def my_animal_generator():<br><br>    yield 'корова'<br><br>    for animal in ['кот', 'собака', 'медведь']:<br>       yield animal<br><br>    yield 'кит'<br><br>for animal in my_animal_generator():<br>    print(animal)<br># корова кот собака медведь кит</pre>
                             </p>
                         </div>
+                    </div>
+                    <h2>10. Стандартные библиотеки:</h2>
+                    <div class="card">
+                        <h3>10.1 Библиотека Math.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                Модуль math – один из наиважнейших в Python. Этот модуль предоставляет обширный функционал для работы с числами.
+                                <br><span class="code">import math</span>
+                                <ul>
+                                    <li>
+                                        <span class="code">math.ceil(X)</span> – округление до ближайшего большего числа.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.copysign(X, Y)</span> - возвращает число, имеющее модуль такой же, как и у числа X, а знак - как у числа Y.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.fabs(X)</span> - модуль X.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.factorial(X)</span> - факториал числа X.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.floor(X)</span> - округление вниз.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.fmod(X, Y)</span> - остаток от деления X на Y.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.frexp(X)</span> - возвращает мантиссу и экспоненту числа.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.ldexp(X, i)</span> - X * 2<sup>i</sup>. 
+                                        Функция, обратная функции math.frexp().
+                                    </li>
+                                    <li>
+                                        <span class="code">math.fsum(последовательность)</span> - сумма всех членов последовательности. 
+                                        Эквивалент встроенной функции sum(), но math.fsum() более точна для чисел с плавающей точкой.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.isfinite(X)</span> - является ли X числом.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.isinf(X)</span> - является ли X бесконечностью.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.isnan(X)</span> - является ли X NaN (Not a Number - не число).
+                                    </li>
+                                    <li>
+                                        <span class="code">math.modf(X)</span> - возвращает дробную и целую часть числа X. Оба числа имеют тот же знак, что и X.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.trunc(X)</span> - усекает значение X до целого.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.exp(X)</span> - e<sup>X</sup>.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.expm1(X)</span> - e<sup>X</sup> - 1. При X → 0 точнее, чем math.exp(X)-1.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.log(X, [base])</span> - логарифм X по основанию base. Если base не указан, вычисляется натуральный логарифм.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.log1p(X)</span> - натуральный логарифм (1 + X). При X → 0 точнее, чем math.log(1+X)
+                                    </li>
+                                    <li>
+                                        <span class="code">math.log10(X)</span> - логарифм X по основанию 10.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.log2(X)</span> - логарифм X по основанию 2.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.pow(X, Y)</span> - X<sup>Y</sup>.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.sqrt(X)</span> - квадратный корень из X.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.acos(X)</span> - арккосинус X. В радианах.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.asin(X)</span> - арксинус X. В радианах.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.atan(X)</span> - арктангенс X. В радианах.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.atan2(Y, X)</span> - арктангенс Y/X. В радианах. 
+                                        С учетом четверти, в которой находится точка (X, Y).
+                                    </li>
+                                    <li>
+                                        <span class="code">math.cos(X)</span> - косинус X (X указывается в радианах).
+                                    </li>
+                                    <li>
+                                        <span class="code">math.sin(X)</span> - синус X (X указывается в радианах).
+                                    </li>
+                                    <li>
+                                        <span class="code">math.tan(X)</span> - тангенс X (X указывается в радианах).
+                                    </li>
+                                    <li>
+                                        <span class="code">math.hypot(X, Y)</span> - вычисляет гипотенузу треугольника 
+                                        с катетами X и Y (math.sqrt(x * x + y * y))
+                                    </li>
+                                    <li>
+                                        <span class="code">math.degrees(X)</span> - конвертирует радианы в градусы.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.radians(X)</span> - конвертирует градусы в радианы.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.cosh(X)</span> - вычисляет гиперболический косинус.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.sinh(X)</span> - вычисляет гиперболический синус.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.tanh(X)</span> - вычисляет гиперболический тангенс.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.acosh(X)</span> - вычисляет обратный гиперболический косинус.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.asinh(X)</span> - вычисляет обратный гиперболический синус.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.atanh(X)</span> - вычисляет обратный гиперболический тангенс.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.erf(X)</span> - функция ошибок.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.erfc(X)</span> - дополнительная функция ошибок (1 - math.erf(X)).
+                                    </li>
+                                    <li>
+                                        <span class="code">math.gamma(X)</span> - гамма-функция X.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.lgamma(X)</span> - натуральный логарифм гамма-функции X.
+                                    </li>
+                                    <li>
+                                        <span class="code">math.pi</span> - pi = 3,1415926...
+                                    </li>
+                                    <li>
+                                        <span class="code">math.e</span> - e = 2,718281...
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>10.1 Библиотека Math.</h3>
                     </div>
                 </div>
 
