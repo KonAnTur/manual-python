@@ -137,9 +137,19 @@ pre {
 .m-t{
     margin-top: 15px;
 }
+.m-t-m{
+    margin-top: -15px;
+}
 .text-in-card{
     margin-left: 25px;
 }
 pre {
     margin:0;
 }
+.formula{
+    width: 300px;
+}
+a{ 
+    text-decoration: none;
+    color: #333333;
+} 
