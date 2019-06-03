@@ -153,3 +153,42 @@ a{
     text-decoration: none;
     color: #333333;
 } 
+
+
+
+.menu {
+    position: fixed;
+    left: 0;top: 0;
+    z-index: 99;
+    width: 15%;
+    height: 100vh;
+
+
+    transition: 0.5s;
+    transform: translateX(-100%);
+  }
+  .menu_active {
+    transform: translateX(0%);
+  }
+  .menu-list {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+  .menu-list a {
+    text-decoration: none;
+    font-family: 'Comfortaa', cursive;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #333333;
+    line-height: 1.5;
+  }
+  .menu-btn {
+    width: 35px;
+    height: 100%;
+    background-color: #333;
+    position: absolute;
+    right: -30px;
+  }

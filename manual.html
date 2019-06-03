@@ -10,6 +10,16 @@
     </head>
 
     <body>
+            <div class="menu">
+                    <a href="#" class="menu-btn"></a>
+                      <nav class="menu-list">
+                        <a href="#">Главная</a>
+                        <a href="#">Новости</a>
+                        <a href="#">Контакты</a>
+                        <a href="#">Портфолио</a>
+                      </nav>
+                  </div>
+        <div class="main">          
         <div class="container">
             <div class="row">
                 <div class="col-6">
@@ -1943,5 +1953,17 @@
                 </div>
             </div>
         </div>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <script>
+            $('.menu-btn').on('click', function(e) {
+                e.preventDefault();
+                $('.menu').toggleClass('menu_active');
+            })
+            $(".main").click(function() {
+                //if ($(".menu").hasClass("menu_active"))
+                    $('.menu').toggleClass('menu_active');
+            })  
+        </script>
     </body>
 </html>
