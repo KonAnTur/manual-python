@@ -236,7 +236,7 @@
                     </div>
                     <h2 id="4">4. Функции:</h2>
                     <div class="card">
-                        <h3>4.1 Инициализация функции: <span class="code">def</span></h3>
+                        <h3><b>4.1 Инициализация функции: <span class="code">def</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Ключевое слово <b class="red">def</b> вводит определение функции. 
@@ -254,7 +254,7 @@
                                 <br><span class="code">greet_again('John') == 'Hello, John'</span>
                             </p>
                         </div>
-                        <h3>4.2 Область видимости переменных: <span class="code">global, nonlocal</span></h3>
+                        <h3><b>4.2 Область видимости переменных: <span class="code">global, nonlocal</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 У переменных в Python есть область видимости. 
@@ -292,7 +292,7 @@
                                 <pre class="code">def counter():<br>    num = 0<br>    def incrementer():<br>        nonlocal num<br>        num += 1<br>        return num<br>    return incrementer</pre>
                             </p>
                         </div>
-                        <h3>4.3 Аргументы функции.</h3>
+                        <h3><b>4.3 Аргументы функции.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Можно указать значение аргументов функции по умолчанию. 
@@ -325,7 +325,7 @@
                                 можем делать все, что нам заблагорассудится.
                             </p>
                         </div>
-                        <h3>4.4 Анонимные (Лямбда) функции: <span class="code">lambda</span></h3>
+                        <h3><b>4.4 Анонимные (Лямбда) функции: <span class="code">lambda</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Анонимные функции могут содержать лишь одно выражение, 
@@ -341,7 +341,7 @@
                                 <pre class="code">func = lambda *args: args<br>func(1, 2, 3, 4) == (1, 2, 3, 4)</pre>
                             </p>
                         </div>
-                        <h3>4.5 Документация функций: <span class="code">"""..."""</span></h3>
+                        <h3><b>4.5 Документация функций: <span class="code">"""..."""</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Документирование кода в python - достаточно важный аспект, 
@@ -353,7 +353,7 @@
                                 <pre class="code">def do_nothing():<br>    """Do nothing, but document it.<br>    No, really, it doesn't do anything.<br>    """<br>    pass<br>do_nothing.__doc__ <br>#"""Do nothing, but document it. No, really, it doesn't do anything."""</pre>
                             </p>
                         </div>
-                        <h3>4.6 Декораторы.</h3>
+                        <h3><b>4.6 Декораторы.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 <b class="red">Декоратор</b> — это функция, которая позволяет обернуть другую функцию для расширения 
@@ -402,7 +402,7 @@
                     </div>
                     <h2 id="7">7. Ошибки и исключения:</h2>
                     <div class="card">
-                        <h3><b>7.1 Оператор try:</b> <span class="code">try, except, else, finally</span></h3>
+                        <h3><b>7.1 Оператор try: <span class="code">try, except, else, finally</span></b></h3>
                         <div class="text-in-card">
                         <p>
                             Оператор <b class="red">try</b> используется для обработки исключений. 
@@ -417,7 +417,7 @@
                             <pre class="code">message = ''<br>try:<br>    print(not_existing_variable)  # noqa: F821<br>except NameError:<br>    message += 'Something went wrong.'<br>finally:<br>    message += 'The "try except" is finished.'</pre>
                         </p>
                         </div>
-                        <h3>7.2 Создание исключений: <span class="code">raise</span></h3>
+                        <h3><b>7.2 Создание исключений: <span class="code">raise</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Оператор <b class="red">raise</b> позволяет программисту принудительно вызвать указанное исключение.
@@ -432,7 +432,7 @@
                     </div>
                     <h2 id="9">9. Дополнения:</h2>
                     <div class="card">
-                        <h3>9.1 Оператор "пропуск": <span class="code">pass</span></h3>
+                        <h3><b>9.1 Оператор "пропуск": <span class="code">pass</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Оператор <b class="red">pass</b> ничего не делает. 
@@ -441,7 +441,7 @@
                                 (Аналог return, только ничего не делает).
                             </p>
                         </div>
-                        <h3>9.2 Генераторы: <span class="code">yield</span></h3>
+                        <h3><b>9.2 Генераторы: <span class="code">yield</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 <b class="red">Генератор</b> - это функция, возвращающая подвид итератора, 
@@ -471,7 +471,7 @@
                     </div>
                     <h2 id="10">10. Стандартные библиотеки для работы с математикой:</h2>
                     <div class="card">
-                        <h3>10.1 Библиотека Math.</h3>
+                        <h3><b>10.1 Библиотека Math.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Модуль <b class="red">math</b> – один из наиважнейших в Python. 
@@ -617,7 +617,7 @@
                                 </ul>
                             </p>
                         </div>
-                        <h3>10.2 Библиотека random.</h3>
+                        <h3><b>10.2 Библиотека random.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Модуль <b class="red">random</b> позволяет генерировать случайные числа.
@@ -709,7 +709,7 @@
                                 </ul>
                             </p>
                         </div>
-                        <h3><a href="https://docs.python.org/3/library/statistics.html" target="_blank">10.3 Модуль statistics.</a></h3>
+                        <h3><b><a href="https://docs.python.org/3/library/statistics.html" target="_blank">10.3 Модуль statistics.</a></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Этот модуль предоставляет функции для расчета математической статистики числовых данных.
@@ -798,7 +798,7 @@
                     </div>
                     <h2 id="13">13. Регулярные выражения:</h2>
                     <div class="card">
-                        <h3>13.1 Библиотека Re.</h3>
+                        <h3><b>13.1 Библиотека Re.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 <b class="red">Регулярное выражение</b> — это последовательность символов, 
@@ -1317,7 +1317,7 @@
                     </div>
                     <h2 id="5">5. Классы:</h2>
                     <div class="card">
-                        <h3>5.1 Инициализация класса: <span class="code">class</span>:</h3>
+                        <h3><b>5.1 Инициализация класса: <span class="code">class</span>.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Python - это объектно-ориентированный язык программирования. 
@@ -1355,7 +1355,7 @@
                                 <pre class="code">class Rectangle:<br>    width = 100<br>    height = 100<br>    def square(self):<br>        return self.width * self.height</pre>
                             </p>
                         </div>
-                        <h3>5.2 Конструктор класса: <span class="code">__init__(self)</span>:</h3>
+                        <h3><b>5.2 Конструктор класса: <span class="code">__init__(self)</span>.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Конструктор класса позволяет задать определенные параметры объекта при его создании. 
@@ -1364,7 +1364,7 @@
                                 <pre class="code">class Rectangle:<br>def __init__(self, color="green", width=100, height=100):<br>    self.color = color<br>    self.width = width<br>    self.height = height<br><br>def square(self):<br>    return self.width * self.height</pre>
                             </p>
                         </div>
-                        <h3>5.3 Наследование.</h3>
+                        <h3><b>5.3 Наследование.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 В организации наследования участвуют как минимум два класса: 
@@ -1375,7 +1375,7 @@
                                 <pre class="code">class Figure:<br>    def __init__(self, color):<br>        self.color = color<br><br>    def get_color(self):<br>        return self.color<br><br>class Rectangle(Figure):<br>    def __init__(self, color, width=100, height=100):<br>        super().__init__(color)<br>        self.width = width<br>        self.height = height<br><br>    def square(self):<br>        return self.width*self.height<br><br>rect1 = Rectangle("blue")<br>print(rect1.get_color())<br>print(rect1.square())<br>rect2 = Rectangle("red", 25, 70)<br>print(rect2.get_color())<br>print(rect2.square())</pre>
                             </p>
                         </div>
-                        <h3>5.4 Полиморфизм.</h3>
+                        <h3><b>5.4 Полиморфизм.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 <b class="red">Полиморфизм</b> - переопределение методов базового класса в классе наследнике. 
@@ -1434,7 +1434,7 @@
                     </div>
                     <h2 id="8">8. Файлы:</h2>
                     <div class="card">
-                        <h3>8.1 Открытие, закрытие файла: <span class="code">open(), close()</span></h3>
+                        <h3><b>8.1 Открытие, закрытие файла: <span class="code">open(), close()</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Перед тем как прочесть и записать что-либо в файл, его следует открыть. 
@@ -1544,7 +1544,7 @@
                                 <pre class="code">my_file = open("some.txt")<br>print("Имя файла: ", my_file.name)<br>print("Файл закрыт: ", my_file.closed)<br>my_file.close()<br>print("А теперь закрыт: ", my_file.closed)</pre>
                             </p>
                         </div>
-                        <h3>8.2 Чтение и запись файлов: <span class="code">write(), read()</span></h3>
+                        <h3><b>8.2 Чтение и запись файлов: <span class="code">write(), read()</span></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Метод <b class="red">write()</b> записывает любую строку в открытый файл. 
@@ -1578,7 +1578,7 @@
                     </div>
                     <h2 id="11">11. Дата и время:</h2>
                     <div class="card">
-                        <h3><a href="https://docs.python.org/3/library/datetime.html" target="_blank">11.1 Библиотека datetime.</a></h3>
+                        <h3><b><a href="https://docs.python.org/3/library/datetime.html" target="_blank">11.1 Библиотека datetime.</a></b></h3>
                         <div class="text-in-card">
                             <p>
                                 Модуль <b class="red">datetime</b> предоставляет классы для обработки времени и даты разными способами. 
@@ -1888,7 +1888,7 @@
                                 другие приложение, использующие те же библиотеки.
                             </p>
                         </div>
-                        <h3>12.1 virtualenv.</h3>
+                        <h3><b>12.1 virtualenv.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Будем рассматривать работу с virtualenv в рамках операционной системы Linux. 
@@ -1929,7 +1929,7 @@
                                 <br><span class="code">deactivate</span>
                             </p>
                         </div>
-                        <h3>12.2 venv.</h3>
+                        <h3><b>12.2 venv.</b></h3>
                         <div class="text-in-card">
                             <p>
                                 Устанавливать venv не нужно, т.к. он входит в стандартную библиотеку Python. 
