@@ -10,15 +10,13 @@
     </head>
 
     <body>
-            <div class="menu">
-                    <a href="#" class="menu-btn"></a>
-                      <nav class="menu-list">
-                        <a href="#">Главная</a>
-                        <a href="#">Новости</a>
-                        <a href="#">Контакты</a>
-                        <a href="#">Портфолио</a>
-                      </nav>
-                  </div>
+        <div class="menu">
+            <a href="#" class="menu-btn"></a>
+            <nav class="menu-list">
+                <ol id="list">
+                </ol>                      
+            </nav>
+        </div>
         <div class="main">          
         <div class="container">
             <div class="row">
@@ -26,7 +24,7 @@
                     <div class="header-h1 header-h1-left">
                         <h1>Методичка по Python</h1>
                     </div>
-                    <h2>1. Операторы:</h2>
+                    <h2 id="1">1. Операторы:</h2>
                     <div class="card">
                         <h3><b>1.1 Арифметические операторы:</b> <span class="code">+, -, *, /, //, %, **</span></h3>
                         <div class="text-in-card">
@@ -186,7 +184,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>3. Логические операторы:</h2>
+                    <h2 id="3">3. Логические операторы:</h2>
                     <div class="card">
                         <h3><b>3.1 Оператор ветвления:</b> <span class="code">if</span></h3>
                         <div class="text-in-card">
@@ -236,7 +234,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>4. Функции:</h2>
+                    <h2 id="4">4. Функции:</h2>
                     <div class="card">
                         <h3>4.1 Инициализация функции: <span class="code">def</span></h3>
                         <div class="text-in-card">
@@ -402,7 +400,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>7. Ошибки и исключения:</h2>
+                    <h2 id="7">7. Ошибки и исключения:</h2>
                     <div class="card">
                         <h3><b>7.1 Оператор try:</b> <span class="code">try, except, else, finally</span></h3>
                         <div class="text-in-card">
@@ -432,7 +430,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>9. Дополнения:</h2>
+                    <h2 id="9">9. Дополнения:</h2>
                     <div class="card">
                         <h3>9.1 Оператор "пропуск": <span class="code">pass</span></h3>
                         <div class="text-in-card">
@@ -471,7 +469,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>10. Стандартные библиотеки для работы с математикой:</h2>
+                    <h2 id="10">10. Стандартные библиотеки для работы с математикой:</h2>
                     <div class="card">
                         <h3>10.1 Библиотека Math.</h3>
                         <div class="text-in-card">
@@ -761,7 +759,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>12. Библиотека glob:</h2>
+                    <h2 id="12">12. Библиотека glob:</h2>
                     <div class="card">
                         <div class="text-in-card">
                             <p>
@@ -798,7 +796,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>13. Регулярные выражения:</h2>
+                    <h2 id="13">13. Регулярные выражения:</h2>
                     <div class="card">
                         <h3>13.1 Библиотека Re.</h3>
                         <div class="text-in-card">
@@ -931,7 +929,7 @@
                 </div>
 
                 <div class="col-6">
-                    <h2>2. Типы данных:</h2>
+                    <h2 id="2">2. Типы данных:</h2>
                     <div class="card">
                         <h3>
                             <b>2.1 Числа (включая booleans):</b> 
@@ -1317,7 +1315,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>5. Классы:</h2>
+                    <h2 id="5">5. Классы:</h2>
                     <div class="card">
                         <h3>5.1 Инициализация класса: <span class="code">class</span>:</h3>
                         <div class="text-in-card">
@@ -1388,7 +1386,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>6. Модули:</h2>
+                    <h2 id="6">6. Модули:</h2>
                     <div class="card">
                         <div class="text-in-card">
                             <p>
@@ -1434,7 +1432,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>8. Файлы:</h2>
+                    <h2 id="8">8. Файлы:</h2>
                     <div class="card">
                         <h3>8.1 Открытие, закрытие файла: <span class="code">open(), close()</span></h3>
                         <div class="text-in-card">
@@ -1578,7 +1576,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>11. Дата и время:</h2>
+                    <h2 id="11">11. Дата и время:</h2>
                     <div class="card">
                         <h3><a href="https://docs.python.org/3/library/datetime.html" target="_blank">11.1 Библиотека datetime.</a></h3>
                         <div class="text-in-card">
@@ -1859,7 +1857,7 @@
                             </p>
                         </div>
                     </div>
-                    <h2>12. Виртуальное окружение:</h2>
+                    <h2 id="14">14. Виртуальное окружение:</h2>
                     <div class="card">
                         <div class="text-in-card">
                             <p>
@@ -1961,9 +1959,34 @@
                 $('.menu').toggleClass('menu_active');
             })
             $(".main").click(function() {
-                //if ($(".menu").hasClass("menu_active"))
+                if ($(".menu").hasClass("menu_active"))
                     $('.menu').toggleClass('menu_active');
             })  
+        </script>
+        <script>
+            var items = document.getElementsByTagName('h2');
+            items = Array.prototype.slice.call(items);
+
+            function compareAge(personA, personB) {
+                return personA.id - personB.id;
+            }
+
+            items.sort(compareAge);
+
+            console.log(items);
+            for(var i = 0; i < items.length; i++) {
+                var newLi = document.createElement('li');
+                newLi.innerHTML = '<a href="#'+ items[i].id + '"' + '>' + items[i].innerHTML + '</a>';
+              
+                list.appendChild(newLi);
+            }
+
+            //Плавная прокрутка до якоря.
+            $("body").on('click', '[href*="#"]', function(e){
+                var fixed_offset = 100;
+                $('html,body').stop().animate({ scrollTop: $(this.hash).offset().top - fixed_offset }, 1000);
+                e.preventDefault();
+            });
         </script>
     </body>
 </html>

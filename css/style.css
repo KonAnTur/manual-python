@@ -40,8 +40,13 @@ ul{
     padding-left: 18px;
 }
 
-li{
+ul > li{
     list-style-type: disc;
+}
+
+ol > li{
+    list-style-type: none;
+    margin-top: 10px;
 }
 
 p {
@@ -160,9 +165,9 @@ a{
     position: fixed;
     left: 0;top: 0;
     z-index: 99;
-    width: 15%;
+    width: 25%;
     height: 100vh;
-
+    background-color: white;
 
     transition: 0.5s;
     transform: translateX(-100%);
@@ -174,6 +179,7 @@ a{
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    z-index: 100;
   }
   .menu-list a {
     text-decoration: none;
@@ -191,4 +197,8 @@ a{
     background-color: #333;
     position: absolute;
     right: -30px;
+  }
+  
+  .main{
+    z-index: 1;
   }
