@@ -1961,7 +1961,8 @@
             $(".main").click(function() {
                 if ($(".menu").hasClass("menu_active"))
                     $('.menu').toggleClass('menu_active');
-            })  
+            }) 
+             
         </script>
         <script>
             var items = document.getElementsByTagName('h2');
@@ -1986,6 +1987,7 @@
                 var fixed_offset = 100;
                 $('html,body').stop().animate({ scrollTop: $(this.hash).offset().top - fixed_offset }, 1000);
                 e.preventDefault();
+                $('.menu').toggleClass('menu_active');
             });
         </script>
     </body>
