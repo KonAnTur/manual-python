@@ -929,6 +929,586 @@
                             </p>
                         </div>
                     </div>
+                    <h2 id="14">14. NumPy:</h2>
+                    <div class="card">
+                        <div class="text-in-card">
+                            <p>
+                                <b class="red">NumPy</b> — это библиотека языка Python, добавляющая поддержку больших многомерных массивов и матриц, 
+                                вместе с большой библиотекой высокоуровневых (и очень быстрых) математических функций для операций 
+                                с этими массивами.
+                                <br><span class="code">import numpy as np</span>
+                            </p>
+                        </div>
+                        <h3>14.1 Массивы и работа с ними:<span class="code">array</span>.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                Главной особенностью numpy является объект <b class="red">array</b>. Массивы схожи со списками в python, 
+                                исключая тот факт, что элементы массива должны иметь одинаковый тип данных, как float и int.
+                                <br><b class="red">Создание массива из списка</b>:
+                                <br><span class="code">a = np.array([1, 4, 5, 8], float)</span>
+                            </p>
+                            <p>
+                                <b class="red">Массивы могут быть и многомерными</b>:
+                                <br><span class="code">a = np.array([[1, 2, 3], [4, 5, 6]], float)</span>
+                            </p>
+                            <p>
+                                Ко всем элементам можно <b class="red">получить доступ и манипулировать</b> ими также, 
+                                как вы бы это делали с обычными списками:
+                                <pre class="code">a = np.array([1, 4, 5, 8], float)<br>a[:2] #array([ 1.,  4.])<br>a[3] #8.0<br>a[0] = 5 #array([ 5.,  4.,  5.,  8.])</pre>
+                            </p>
+                            <p>
+                                <b class="red">Array slicing</b> работает с многомерными массивами аналогично, как и с одномерными, 
+                                применяя каждый срез, как фильтр для установленного измерения. Используйте <b class="red">":"</b> в 
+                                измерении для указывания использования всех элементов этого измерения:
+                                <pre class="code">a = np.array([[1, 2, 3], [4, 5, 6]], float)<br>a[1,:] #array([ 4.,  5.,  6.])<br>a[:,2] #array([ 3.,  6.])<br>a[-1:, -2:] #array([[ 5.,  6.]])</pre>
+                            </p>
+                            <p>
+                                <ul>
+                                    <li>
+                                        Метод <b class="red">.shape</b> возвращает количество строк и столбцов в матрице:
+                                        <br><span class="code">[[1,2,3],[4,5,6]].shape #(2,3)</span>
+                                    </li>
+                                    <li>
+                                        Метод <b class="red">.dtype</b> возвращает тип переменных, хранящихся в массиве:
+                                        <br><span class="code">[[1,2,3],[4,5,6]].dtype #dtype('int32')</span>
+                                    </li>
+                                    <li>
+                                        Функция <b class="red">len()</b> возвращает длину первого измерения (оси):
+                                        <br><span class="code">len(np.array([[1, 2, 3], [4, 5, 6]], float)) #2</span>
+                                    </li>
+                                    <li>
+                                        Конструкция <b class="red">in</b> используется для проверки на наличие элемента в массиве:
+                                        <br><span class="code">2 in np.array([[1, 2, 3], [4, 5, 6]], float) #True</span>
+                                    </li>
+                                    <li>
+                                        Метод <b class="red">.reshape()</b> переформировывает массив в новую размерность.
+                                        метод reshape создает новый массив, а не модифицирует оригинальный:
+                                        <pre class="code">a = np.array(range(10), float)<br>a = a.reshape((5, 2))<br>array([[ 0.,  1.],<br>        [ 2.,  3.],<br>        [ 4.,  5.],<br>        [ 6.,  7.],<br>        [ 8.,  9.]])</pre>
+                                    </li>
+                                    <li>
+                                        Метод <b class="red">.copy()</b> используется для создания копии существующего массива 
+                                        в памяти:
+                                        <pre class="code">a = np.array([1, 2, 3], float)<br>c =  a.copy() #array([1., 2., 3.])</pre>
+                                    </li>
+                                    <li>
+                                        С помощью метода <b class="red">.tolist()</b> списки можно тоже создавать с массивов:
+                                        <pre class="code">a = np.array([1, 2, 3], float)<br>a.tolist()</pre>
+                                    </li>
+                                    <li>
+                                        Метод <b class="red">.tostring()</b> переконвертирует массив в бинарную строку, а метод 
+                                        <b class="red">np.fromstring()</b> преобразует бинарную строку обратно в массив:
+                                        <pre class="code">a = array([1, 2, 3], float)<br>s = a.tostring()<br>#'\x00\x00\x00\x00\x00\x00\xf0?\x00\x00\x00\x00<br>#    \x00\x00\x00@\x00\x00\x00\x00\x00\x00\x08@'<br>np.fromstring(s) #array([ 1.,  2.,  3.])</pre>
+                                    </li>
+                                    <li>
+                                        С помощью метода <b class="red">.fill()</b> можно заполнить массив конкретными значемниями:
+                                        <pre class="code">a = array([1, 2, 3], float)<br>a.fill(0) #array([ 0.,  0.,  0.])</pre>
+                                    </li>
+                                    <li>
+                                        Транспонирование массивов производится методом <b class="red">.transpose()</b>, при этом 
+                                        создается новый массив:
+                                        <pre class="code">a = np.array(range(6), float).reshape((2, 3))<br>#array([[ 0.,  1.,  2.],<br>#        [ 3.,  4.,  5.]])<br>a.transpose()<br>#array([[ 0.,  3.],<br>#        [ 1.,  4.],<br>#        [ 2.,  5.]])</pre>
+                                    </li>
+                                    <li>
+                                        Многомерный массив можно переконвертировать в одномерный при помощи метода <b class="red">.flatten()</b>:
+                                        <pre class="code">a = np.array([[1, 2, 3], [4, 5, 6]], float)<br>a.flatten() #array([ 1.,  2.,  3.,  4.,  5.,  6.])</pre>
+                                    </li>
+                                    <li>
+                                        Два или больше массивов можно сконкатенировать при помощи метода <b class="red">.concatenate()</b>:
+                                        <pre class="code">a = np.array([1,2], float)<br>b = np.array([3,4,5,6], float)<br>c = np.array([7,8,9], float)<br>np.concatenate((a, b, c))<br>#array([1., 2., 3., 4., 5., 6., 7., 8., 9.])</pre>
+                                        Если массив не одномерный, можно задать ось, по которой будет происходить 
+                                        соединение. По умолчанию (не задавая значения оси), соединение будет 
+                                        происходить по первому измерению:
+                                        <pre class="code">a = np.array([[1, 2], [3, 4]], float)<br>b = np.array([[5, 6], [7,8]], float)<br>np.concatenate((a,b))<br>#array([[ 1.,  2.],<br>#        [ 3.,  4.],<br>#        [ 5.,  6.],<br>#        [ 7.,  8.]])<br>np.concatenate((a,b), axis=0)<br>#array([[ 1.,  2.],<br>#        [ 3.,  4.],<br>#        [ 5.,  6.],<br>#        [ 7.,  8.]])<br>np.concatenate((a,b), axis=1)<br>#array([[ 1.,  2.,  5.,  6.],<br>#        [ 3.,  4.,  7.,  8.]])</pre>
+                                    </li>
+                                    <li>
+                                        Размерность массива может быть увеличена при использовании константы <b class="red">np.newaxis</b> в квадратных скобках:
+                                        <pre class="code">a = np.array([1, 2, 3], float)<br>a[:,np.newaxis]<br>#array([[ 1.],<br>#        [ 2.],<br>#        [ 3.]])<br>a[np.newaxis,:]<br>#array([[ 1.,  2.,  3.]])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.2 Другие пути создания массивов.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Функция <b class="red">np.arange()</b> аналогична функции range, но возвращает массив:
+                                        <br><span class="code">np.arange(1, 6, 2, dtype=int) #array([1, 3, 5])</span>
+                                    </li>
+                                    <li>
+                                        Функции <b class="red">np.zeros()</b> и <b class="red">np.ones()</b> 
+                                        создают новые массивы с 
+                                        установленной размерностью, заполненные нулями и единицами:
+                                        <pre class="code">np.ones((2,3), dtype=float)<br>#array([[ 1.,  1.,  1.],<br>#        [ 1.,  1.,  1.]])<br>np.zeros(7, dtype=int)<br>#array([0, 0, 0, 0, 0, 0, 0])</pre>
+                                    </li>
+                                    <li>
+                                        Функции <b class="red">np.zeros_like()</b> и <b class="red">np.ones_like()</b> 
+                                        могут преобразовать уже созданный массив, 
+                                        заполнив его нулями и единицами соответственно:
+                                        <pre class="code">a = np.array([[1, 2, 3], [4, 5, 6]], float)<br>np.zeros_like(a)<br>#array([[ 0.,  0.,  0.],<br>#       [ 0.,  0.,  0.]])<br>np.ones_like(a)<br>#array([[ 1.,  1.,  1.],<br>#       [ 1.,  1.,  1.]])</pre>
+                                    </li>
+                                    <li>
+                                        Для создания квадратной матрицы с главной диагональю, 
+                                        которая заполненная единицами, воспользуемся методом 
+                                        <b class="red">np.identity()</b>:
+                                        <pre class="code">np.identity(4, dtype=float)<br>#array([[ 1.,  0.,  0.,  0.],<br>#       [ 0.,  1.,  0.,  0.],<br>#       [ 0.,  0.,  1.,  0.],<br>#       [ 0.,  0.,  0.,  1.]])</pre>
+                                    </li>
+                                    <li>
+                                        Функция <b class="red">np.eye()</b> возвращает матрицу с единичками 
+                                        на к-атой диагонали:
+                                        <pre class="code">np.eye(4, k=1, dtype=float)<br>#array([[ 0.,  1.,  0.,  0.],<br>#       [ 0.,  0.,  1.,  0.],<br>#       [ 0.,  0.,  0.,  1.],<br>#       [ 0.,  0.,  0.,  0.]])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.3 Математические операции над массивами:</h3>
+                        <div class="text-in-card">
+                            <p>
+                                Когда для массивов мы используем стандартные математические операции, 
+                                должен соблюдаться принцип: элемент-элемент. Это означает, что массивы должны 
+                                быть одинакового размера во время сложения, вычитания и тому подобных операций:
+                                <pre class="code">a = np.array([1,2,3], float)<br>b = np.array([5,2,6], float)<br>a + b #array([6., 4., 9.])<br>a – b #array([-4., 0., -3.])<br>a * b #array([5., 4., 18.])<br>b / a #array([5., 1., 2.])<br>a % b #array([1., 0., 3.])<br>b**a #array([5., 4., 216.])</pre>
+                            </p>
+                            <p>    
+                                Если размерность массивов не совпадает, они будут преобразованы для 
+                                выполнения математических операций. Это зачастую означает, что меньший 
+                                массив будет использован несколько раз для завершения операций:
+                                <pre class="code">a = np.array([[1, 2], [3, 4], [5, 6]], float)<br>b = np.array([-1, 3], float)<br>a + b<br>#array([[ 0.,  5.],<br>#       [ 2.,  7.],<br>#       [ 4.,  9.]])</pre>
+                            </p>
+                            <p>
+                                Тут, одномерный массив b был преобразован в двухмерный, который 
+                                соответствует размеру массива a. По существу, b был повторен 
+                                несколько раз, для каждой «строки» a.
+                            </p>
+                        </div>
+                        <h3>
+                            14.4 Стандартные математические функции, которые могут быть применены поэлементно к массивам.
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        <b class="red">np.abs()</b> - Функция модуля применяемый поэлементно к массиву.  
+                                    </li>
+                                    <li>
+                                        <b class="red">np.sign()</b> - Возвращающает знак каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.sqrt()</b> - Возвращает квадратный корень каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.log()</b> - Возвращает натуральный логарифм каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.log10()</b> - Возвращает десятичный логарифм каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.exp()</b> - Возвращает экспоненту в степени каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.sin()</b> - Возвращает синус каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.cos()</b> - Возвращает косинус каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.tan()</b> - возвращает тангенс каждого элемента массива.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.arcsin()</b> - Возвращает арксинус каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.arccos()</b> - Возвращает арккосинус каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.arctan()</b> - Возвращает арктангенс каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.sinh()</b> - Возвращает гиперболический синус каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.cosh()</b> - Возвращает гиперболический косинус каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.tanh()</b> - Возвращает гиперболический тангенс каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.arcsinh()</b> - Возвращает гиперболический арксинус каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.arccosh()</b> - Возвращает гиперболический арккосинус каждого элемента.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.arctanh()</b> - Возвращает гиперболический арктангенс каждого элемента
+                                    </li>
+                                    <li>
+                                        Функции <b class="red">np.floor()</b>, <b class="red">np.ceil()</b>
+                                         и <b class="red">np.rint()</b> возвращают нижние, 
+                                        верхние или ближайшие (округлённое) значение:
+                                        <pre class="code">a = np.array([1.1, 1.5, 1.9], float)<br>np.floor(a) #array([ 1.,  1.,  1.])<br>np.ceil(a) #array([ 2.,  2.,  2.])<br>np.rint(a) #array([ 1.,  2.,  2.])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.pi</b> и <b class="red">np.e</b> - числа Пи и Эйлера.
+                                    </li>
+                                </ul>
+                                <pre class="code">a = np.array([1, 4, 9], float)<br>np.sqrt(a) #array([ 1.,  2.,  3.])</pre>
+                            </p>
+                        </div>
+                        <h3>14.5 Перебор элементов массива.</h3>
+                        <div class="text-in-card">
+                            <p>
+                               Для многомерных массивов итерация будет проводиться 
+                               по первой оси, так, что каждый проход цикла будет возвращать «строку» массива:
+                               <pre class="code">a = np.array([[1, 2], [3, 4], [5, 6]], float)<br>for x in a:<br>    print x<br>#[ 1.  2.]<br>#[ 3.  4.]<br>#[ 5.  6.]</pre>
+                            </p>
+                            <p>
+                                Множественное присваивание также доступно при итерации:
+                                <pre class="code">a = np.array([[1, 2], [3, 4], [5, 6]], float)<br>for (x, y) in a:<br>    print x * y<br>#2.0<br>#12.0<br>#30.0</pre>
+                            </p>
+                        </div>
+                        <h3>14.6 Базовые операции над массивами.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        <b class="red">sorted()</b> и <b class="red">.sort()</b> - сортировка массивов:
+                                        <pre class="code">a = np.array([6, 2, 5, -1, 0], float)<br>sorted(a) #[-1.0, 0.0, 2.0, 5.0, 6.0]<br>a.sort() #array([-1.,  0.,  2.,  5.,  6.])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">.clip()</b> - "сокращает" значения в массиве, чтобы они 
+                                        попадали в заданный диапазон:
+                                        <pre class="code">a = np.array([6, 2, 5, -1, 0], float)<br>a.clip(0, 5) #array([ 5.,  2.,  5.,  0.,  0.])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.unique()</b> - Извлекает уникальные элементы:
+                                        <pre class="code">a = np.array([1, 1, 4, 5, 5, 5, 7], float)<br>np.unique(a) #array([ 1.,  4.,  5.,  7.])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">.diagonal()</b> - диагональ для двухмерных массивов:
+                                        <pre class="code">a = np.array([[1, 2], [3, 4]], float)<br>a.diagonal() #array([ 1.,  4.])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.7 Операторы сравнения и тестирование значений.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                Булево сравнение может быть использовано для поэлементного 
+                                сравнения массивов одинаковых длин. Возвращаемое значение это 
+                                массив булевых True/False значений:
+                                <pre class="code">a = np.array([1, 3, 0], float)<br>b = np.array([0, 3, 2], float)<br>a > b #array([ True, False, False], dtype=bool)<br>a == b #array([False,  True, False], dtype=bool)<br>a <= b #array([False,  True,  True], dtype=bool)</pre>
+                            </p>
+                            <p>
+                                Результат сравнения может быть сохранен в массиве:
+                                <span class="code">c = a > b</span>
+                                <br>Массивы могут быть сравнены с одиночным значением:
+                                <br><span class="code">np.array([1, 3, 0], float) > 2</span>
+                                <ul>
+                                    <li>
+                                        Операторы any и all могут быть использованы для определения 
+                                        истинны ли хотя бы один или все элементы соответственно:
+                                        <pre class="code">c = np.array([ True, False, False], bool)<br>any(c) #True<br>all(c) #False</pre>
+                                    </li>
+                                    <li>
+                                        Комбинированные булевы выражения могут быть применены к 
+                                        массивам по принципу элемент — элемент используя специальные функции 
+                                        <b class="red">np.logical_and()</b>, <b class="red">np.logical_or()</b> 
+                                        и <b class="red">np.logical_not()</b>:
+                                        <pre class="code">a = np.array([1, 3, 0], float)<br>np.logical_and(a > 0, a < 3)<br>#array([ True, False, False], dtype=bool)<br><br>b = np.array([True, False, True], bool)<br>np.logical_not(b) #array([False,  True, False], dtype=bool)<br>c = np.array([False, True, False], bool)<br>np.logical_or(b, c) #array([ True,  True,  False], dtype=bool)</pre>
+                                    </li>
+                                    <li>
+                                        Функция <b class="red">where()</b> создает новый массив из двух других массивов одинаковых 
+                                        длин используя булев фильтр для выбора межу двумя элементами. 
+                                        Базовый синтаксис: 
+                                        <br><span class="code">where(boolarray, truearray, falsearray)</span>:
+                                        <pre class="code">a = np.array([1, 3, 0], float)<br>np.where(a != 0, 1 / a, a)<br>#array([1., 0.33333333, 0.])</pre>
+                                    </li>
+                                    <li>
+                                        Функция <b class="red">.nonzero()</b> возвращает кортеж индексов ненулевых значений:
+                                        <pre class="code">a = np.array([[0, 1], [3, 0]], float)<br>a.nonzero() #(array([0, 1]), array([1, 0]))</pre>
+                                    </li>
+                                    <li>
+                                        Также можно проверить значения на конечность <b class="red">np.isfinite()</b> 
+                                        и NaN(not a number) <b class="red">np.isnan()</b>:
+                                        <pre class="code">a = np.array([1, np.NaN, np.Inf], float)<br>np.isnan(a) #array([False,  True, False], dtype=bool)<br>np.isfinite(a) #array([ True, False, False], dtype=bool)</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.8 Выбор элементов массива и манипуляция с ними.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                Мы уже видели, как и у списков, элементы массива можно получить 
+                                используя операцию доступа по индексу. Однако, в отличии от списков, 
+                                массивы также позволяют делать выбор элементов используя другие массивы. 
+                                Это значит, что мы можем <b class="red">использовать массив для фильтрации</b> 
+                                специфических подмножеств элементов других массивов. 
+                                <pre class="code">a = np.array([[6, 4], [5, 9]], float)<br>a >= 6<br>#array([[ True, False],<br>#       [False,  True]], dtype=bool)<br>a[a >= 6] #array([ 6.,  9.])</pre>
+                            </p>
+                            <p>
+                                Также мы можем записать <b class="red">массив для фильтрации в переменную</b>:
+                                <pre class="code">sel = (a >= 6)<br>a[sel] #array([ 6.,  9.])</pre>
+                            </p>
+                            <p>
+                                <b class="red">Фильтрация может быть достигнута использованием булевых выражений</b>:
+                                <br><span class="code">a[np.logical_and(a > 5, a < 9)] #array([ 6.])</span>
+                            </p>
+                            <p>
+                                <b class="red">Можно использовать целочисленные массивы.</b> В этом случае, целочисленный 
+                                массив хранит индексы элементов, которые будут взяты из массива:
+                                <pre class="code">a = np.array([2, 4, 6, 8], float)<br>b = np.array([0, 0, 1, 3, 2, 1], int)<br>a[b] #array([ 2.,  2.,  4.,  8.,  6.,  4.])</pre>
+                            </p>
+                            <p>
+                                <b class="red">Для многомерных массивов, нам необходимо передать несколько одномерных 
+                                целочисленных массивов в оператор доступа индексу для каждой оси</b>. 
+                                Потом каждый из массивов проходит такую последовательность: 
+                                первый элемент соответствует индексу строки, который является первым элементом массива b, 
+                                второй элемент соответствует индексу столбца, который является 
+                                первым элементом массива c и так далее.
+                                <pre class="code">a = np.array([[1, 4], [9, 16]], float)<br>b = np.array([0, 0, 1, 1, 0], int)<br>c = np.array([0, 1, 1, 1, 1], int)<br>a[b,c] #array([  1.,   4.,  16.,  16.,   4.])</pre>
+                            </p>
+                            <p>
+                                <ul>
+                                    <li>
+                                        Специальная функция <b class="red">.take()</b> доступна для выполнения выборки с 
+                                        целочисленными массивами. Это работает также как и использования 
+                                        оператора взятия по индексу:
+                                        <pre class="code">a = np.array([2, 4, 6, 8], float)<br>b = np.array([0, 0, 1, 3, 2, 1], int)<br>a.take(b) #array([ 2.,  2.,  4.,  8.,  6.,  4.])</pre>
+                                        <p>
+                                            Функция take также предоставляет аргумент <b class="red">axis</b> (ось) 
+                                            для взятия подсекции многомерного массива вдоль какой-либо оси. 
+                                            <pre class="code">a = np.array([[0, 1], [2, 3]], float)<br>b = np.array([0, 0, 1], int)<br>a.take(b, axis=0)<br>#array([[ 0.,  1.],<br>#       [ 0.,  1.],<br>#       [ 2.,  3.]])<br>a.take(b, axis=1)<br>#array([[ 0.,  0.,  1.],<br>#       [ 2.,  2.,  3.]])</pre>                                           
+                                        </p>
+                                    </li>
+                                    <li>
+                                        Функция <b class="red">.put()</b>, будет брать значения из исходного массива и 
+                                        записывать их на специфические индексы в другом put-массиве:
+                                        <pre class="code">a = np.array([0, 1, 2, 3, 4, 5], float)<br>b = np.array([9, 8, 7], float)<br>a.put([0, 3], b) #array([ 9.,  1.,  2.,  8.,  4.,  5.])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.9 Векторная и матричная математика.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Функция <b class="red">np.dot() возвращает скалярное произведение векторов</b>:
+                                        <pre class="code">a = np.array([1, 2, 3], float)<br>b = np.array([0, 1, 1], float)<br>np.dot(a, b) #5.0</pre>
+                                        <p>
+                                            Функция <b class="red">np.dot() также может умножать матрицы</b>:
+                                            <pre class="code">a = np.array([[0, 1], [2, 3]], float)<br>b = np.array([2, 3], float)<br>c = np.array([[1, 1], [4, 0]], float)<br>np.dot(b, a) #array([  6.,  11.])<br>np.dot(a, b) #array([  3.,  13.])<br>np.dot(a, c)<br>#array([[  4.,   0.],<br>#       [ 14.,   2.]])<br>np.dot(c, a)<br>#array([[ 2.,  4.],<br>#       [ 0.,  4.]])</pre>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.outer()</b> - внешнее произведение векторов, 
+                                        <b class="red">np.inner()</b> - внутренее произведение векторов,
+                                        <b class="red">np.cross()</b> - перекрёстное произведение векторов.
+                                        <pre class="code">a = np.array([1, 4, 0], float)<br>b = np.array([2, 2, 1], float)<br>np.outer(a, b)<br>#array([[ 2.,  2.,  1.],<br>#       [ 8.,  8.,  4.],<br>#       [ 0.,  0.,  0.]])<br>np.inner(a, b) #10.0<br>np.cross(a, b) #array([ 4., -1., -6.])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                            <p>
+                                NumPy также предоставляет набор встроенных функций и методов для работы 
+                                с линейной алгеброй. Это всё можно найти в под-модуле linalg.
+                                <ul>
+                                    <li>
+                                        <b class="red">np.linalg.matrix_power(M, n)</b> - возводит матрицу M в степень n.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.cholesky(a)</b> - разложение Холецкого.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.qr(a[, mode])</b> - QR разложение.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.svd(a[, full_matrices, compute_uv])</b> - сингулярное разложение.
+                                        <pre class="code">a = np.array([[1, 3,4], [5, 2, 3]], float)<br>U, s, Vh = np.linalg.svd(a)<br>U<br>#array([[-0.6113829 , -0.79133492],<br>#       [-0.79133492,  0.6113829 ]])<br>s<br>#array([ 7.46791327,  2.86884495])<br>Vh<br>#array([[-0.61169129, -0.45753324, -0.64536587],<br>#       [ 0.78971838, -0.40129005, -0.46401635],<br>#       [-0.046676 , -0.79349205,  0.60678804]])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.eig(a)</b> - собственные значения и собственные векторы.
+                                        <pre class="code">vals, vecs = np.linalg.eig(a)<br>vals<br>#array([ 9.        ,  2.44948974, -2.44948974])<br>vecs<br>#array([[-0.3538921 , -0.56786837,  0.27843404],<br>#       [-0.88473024,  0.44024287, -0.89787873],<br>#       [-0.30333608,  0.69549388,  0.34101066]])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.norm(x[, ord, axis])</b> - норма вектора или оператора.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.cond(x[, p])</b> - число обусловленности.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.det(a)</b> - определитель
+                                        <pre class="code">a = np.array([[4, 2, 0], [9, 3, 7], [1, 2, 1]], float)<br>#array([[ 4.,  2.,  0.],<br>#       [ 9.,  3.,  7.],<br>#       [ 1.,  2.,  1.]])<br>np.linalg.det(a) #-53.99...</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.slogdet(a)</b> - знак и логарифм определителя 
+                                        (для избежания переполнения, если сам определитель очень маленький).
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.solve(a, b)</b> - решает систему линейных уравнений 
+                                        <br>Ax = b.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.tensorsolve(a, b[, axes])</b> - решает тензорную систему линейных уравнений 
+                                        <br>Ax = b.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.lstsq(a, b[, rcond])</b> - метод наименьших квадратов.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.linalg.inv(a)</b> - обратная матрица.
+                                        <pre class="code">b = np.linalg.inv(a)<br>b<br>#array([[ 0.14814815,  0.07407407, -0.25925926],<br>#       [ 0.2037037 , -0.14814815,  0.51851852],<br>#       [-0.27777778,  0.11111111,  0.11111111]])<br>np.dot(a, b)<br>#array([[  1.00000000e+00,   5.55111512e-17,   2.22044605e-16],<br>#       [  0.00000000e+00,   1.00000000e+00,   5.55111512e-16],<br>#       [  1.11022302e-16,   0.00000000e+00,   1.00000000e+00]])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.10 Математика многочленов.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                NumPy предоставляет методы для работы с полиномами.
+                                <ul>
+                                    <li>
+                                        <b class="red">np.poly()</b> - возвращает коэффициенты полинома, который подходит под
+                                        список передаваемых корней:
+                                        <br><span class="code">np.poly([-1, 1, 1, 10]) #array([ 1, -11,   9,  11, -10])</span>
+                                        Здесь, массив возвращает коэффициенты соответствующие уравнению:
+                                        <img src="img/poli_1.svg" alt="x^4 - 11x^3 + 9x^2 + 11x - 10">
+                                    </li>
+                                    <li>
+                                        Функция <b class="red">np.root()</b> вернет все корни многочлена 
+                                        соответсвующего переданным коэффициентам:
+                                        <pre class="code">np.roots([1, 4, -2, 3])<br>#array([-4.57974010+0.j,  0.28987005+0.75566815j,<br>        0.28987005-0.75566815j])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.polyint()</b> - возвращает коэффициенты 
+                                        проинтегрированного полинома с передаваемыми коэффициентами.
+                                        <br> Например проинтегрированный полином
+                                        <img src="img/poli_2.svg" alt="x^3 + x^2 + x + 1">
+                                        имеет вид <img src="img/poli_2_integr.svg" alt="x^4/4 + x^3/3 + x^2/2 + x + C">,
+                                        где <img src="img/С.svg" alt="C"> обычно равно нулю.
+                                        <pre class="code">np.polyint([1, 1, 1, 1])<br>#array([ 0.25, 0.33333333, 0.5, 1., 0. ])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.polyder()</b> - производная аналогичная интегрированию:
+                                        <pre class="code">np.polyder([1./4., 1./3., 1./2., 1., 0.])<br>#array([ 1.,  1.,  1.,  1.])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.polyadd()</b>, <b class="red">np.polysub()</b>, 
+                                        <b class="red">np.polymul()</b> и <b class="red">np.polydiv()</b> - суммирование, 
+                                        вычитание, умножение и деление коэффициентов многочлена.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.polyval()</b> подставляет в многочлен заданное значение.
+                                        <pre class="code">np.polyval([1, -2, 0, 2], 4) #34</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.polyfit()</b> может быть использована для подбора (интерполяции) многочлена заданного 
+                                        порядка к набору значений:
+                                        <pre class="code">x = [1, 2, 3, 4, 5, 6, 7, 8]<br>y = [0, 2, 1, 3, 7, 10, 11, 19]<br>np.polyfit(x, y, 2) #array([ 0.375, -0.88690476, 1.05357143])</pre>
+                                        Возвращаемый массив это список коэффициентов многочлена.
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.11 Статистика.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Функции <b class="red">np.sum()</b>, <b class="red">a.sum()</b> и 
+                                        <b class="red">np.prod()</b>, <b class="red">a.prod()</b> суммируют 
+                                        и перемножают элементы:
+                                        <pre class="code">a = np.array([2, 4, 3], float)<br>a.sum() #9.0<br>a.prod() #24.0<br>np.sum(a) #9.0<br>np.prod(a) #24.0</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">.mean()</b> - среднее арифметическое, <b class="red">.var()</b>
+                                         - вариация и <b class="red">.std()</b> - девиация:
+                                        <pre class="code">a = np.array([2, 1, 9], float)<br>a.mean() #4.0<br>a.var() #12.666666666666666<br>a.std() #3.5590260840104371</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">.min()</b> - минимум и <b class="red">.max()</b>
+                                         - максимум в массиве:
+                                        <pre class="code">a = np.array([2, 1, 9], float)<br>a.min() #1.0<br>a.max() #9.0</pre>
+                                    </li>
+                                    <li>
+                                        Функции <b class="red">.argmin()</b> 
+                                        и <b class="red">.argmax()</b> возвращают индекс минимального 
+                                        или максимального элемента:
+                                        <pre class="code">a = np.array([2, 1, 9], float)<br>a.argmin() #1<br>a.argmax() #2</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                            <p>
+                                Для многомерных массивов каждая из функций может 
+                                принять дополнительный аргумент <b class="red">axis</b> и в зависимости от 
+                                его значения выполнять функции по определенной оси, помещая 
+                                результаты исполнения в массив:
+                                <pre class="code">a = np.array([[0, 2], [3, -1], [3, 5]], float)<br>a.mean(axis=0) #array([ 2.,  2.])<br>a.mean(axis=1) #array([ 1.,  1.,  4.])<br>a.min(axis=1) #array([ 0., -1.,  3.])<br>a.max(axis=0) #array([ 3.,  5.])</pre>
+                            </p>
+                            <p>
+                                <ul>
+                                    <li>
+                                        <b class="red">np.median()</b> - медиана.
+                                        <pre class="code">a = np.array([1, 4, 3, 8, 9, 2, 3], float)<br>np.median(a) #3.0</pre>
+                                    </li>
+                                    <li>
+                                        Коэффициент корреляции для некоторых переменных, 
+                                        наблюдается несколько раз и может быть найден с помощью функции
+                                        <b class="red">np.corrcoef()</b> из массивов вида: 
+                                        <br>[[x1, x2, ...], [y1, y2, ...], [z1, z2, ...], ...], где x, y, z это разные 
+                                        квантовые наблюдаемые и номера указывают количество «наблюдений»:
+                                        <pre class="code">a = np.array([[1, 2, 1, 3], [5, 3, 1, 8]], float)<br>c = np.corrcoef(a)<br>#array([[ 1., 0.72870505],<br>#        [ 0.72, 1. ]])</pre>
+                                        Имеем возвращаемый массив c[i, j] 
+                                        который хранит корреляционный коэффициент для i-тых и j-тых 
+                                        квантовых наблюдаемых.
+                                    </li>
+                                    <li>
+                                        <b class="red">np.cov()</b> - ковариационный момент может быть найден:
+                                        <pre class="code">np.cov(a)<br>#array([[ 0.91666667,  2.08333333],<br>#        [ 2.08333333,  8.91666667]])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3>14.12 Случайные числа.</h3>
+                        <div class="text-in-card">
+                            <p>
+                                Важная часть каждой симуляции это способность генерировать случайные числа. 
+                                Для этого мы используем встроенный в NumPy генератор псевдослучайных 
+                                чисел в под-модуле random. Числа являются псевдо случайными, в том 
+                                плане что, они сгенерированы детерминистически из порождающего элемента 
+                                (seed number), но рассредоточены в статистическом сходстве 
+                                с случайным образом.
+                                <br><b class="red">Задать порождающий элемент последовательности случайных чисел можно так:</b> 
+                                <br><span class="code">np.random.seed(293423)</span>
+                                <br>Seed это целое число. Каждая программа которая запускается с 
+                                одинаковым seed`ом будет генерировать одинаковую последовательность чисел каждый раз.
+                                <ul>
+                                    <li>
+                                        <b class="red">np.random.rand()</b> - Массив случайных чисел из полуинтервала [0.0, 1.0):
+                                        <pre class="code">np.random.rand(5)<br>#array([ 0.40783762, 0.7550402, 0.00919317,<br>        0.01713451, 0.95299583])<br>np.random.rand(2,3)<br>#array([[ 0.50431753,  0.48272463,  0.45811345],<br>#        [ 0.18209476,  0.48631022,  0.49590404]])<br>np.random.random() #0.70110</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.random.randint(min, max)</b> - генерация случайного 
+                                        целочисленного числа в диапазоне [min, max):
+                                        <br><span class="code">np.random.randint(5, 10) #9</span>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.random.poisson(a)</b> - Генерация из дискретного распределения Пуассона при λ = a,
+                                    </li>
+                                    <li>
+                                        <b class="red">np.random.normal(a, b)</b> - Генерация числа из нормального распределения 
+                                        (Гаусса) при среднем значении μ = a и стандартной девиации σ = b.
+                                        <br><span class="code">np.random.normal(1.5, 4.0) #0.836</span>
+                                        <br>Для генерации нескольких значений используем аргумент size:
+                                        <pre class="code">np.random.normal(size=3)<br>#array([-1.67215088,  0.65813053, -0.70150614])</pre>
+                                    </li>
+                                    <li>
+                                        <b class="red">np.random.shuffle()</b> - случайное распределение значений в списке:
+                                        <br><pre class="code">l = range(10)<br>#[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]<br>np.random.shuffle(l)<br>#[4, 9, 5, 0, 2, 7, 6, 8, 1, 3]</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-6">
