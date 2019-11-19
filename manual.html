@@ -4719,6 +4719,635 @@
                             </div>
                         </div>
                         <h3 id="15.12">15.12 Графики в полярной системе координат:</h3>
+                        <div class="text-in-card">
+                            <p>
+                                По умолчанию двумерные графики имеют прямоугольную декартову 
+                                систему координат. В некоторых задачах намного нагляднее 
+                                отображать информацию на круге, а не в прямоугольнике. 
+                                Например, при отображении розы ветров. Переход от прямоугольной 
+                                формы основы рисунка к кругу позволяет нагляднее отобразить графики, 
+                                заданные в полярной системе координат (polar plots).
+                            </p>
+                            <h4>Полярная система координат</h4>
+                            <p>
+                                В декартовой системе координат, которая используется по умолчанию, 
+                                положение точки определяется двумя значениями: аргументом x и значением функции y.
+                                В полярной системе координат положение точки также определяется двумя значениями: 
+                                радиусом r и углом phi. Угол обычно отсчитывают против часовой стрелке от 
+                                "восточного" (3:00) направления.
+                            </p>
+                            <p>Переход из полярной системы координат в прямоугольную выглядит так:</p>
+                            <ul>
+                                <li><b class="red">x = r*cos(phi)</b></li>
+                                <li><b class="red">y = r*sin(phi)</b></li>
+                            </ul>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib.pyplot as plt<br>import numpy as np<br><br>fig = plt.figure(figsize=(8., 6.))<br>x = np.arange(150)<br>y = x**2 + 2.5<br><br>lag = 0.05*np.pi<br>r = np.arange(0.0, 5.0, 0.1)<br>phi = r*np.pi<br>#np.arange(-2*np.pi, 2*np.pi + lag, lag)<br><br># x и y<br>ax1 = fig.add_subplot(231, projection='polar')<br>ax1.plot(x, y)<br>ax1.grid(True)<br><br>ax2 = fig.add_subplot(232, projection='polar')<br>ax2.plot(phi*2., r, 'orange')<br>ax2.grid(True)<br><br>ax3 = fig.add_subplot(233, projection='polar')<br>ax3.plot(x, x, 'r')<br>ax3.grid(True)<br><br>ax4 = fig.add_subplot(234, projection='polar')<br>ax4.plot(-1.5*phi, r, 'g')<br>ax4.grid(True)<br><br>ax5 = fig.add_subplot(235)<br>ax5.plot(phi*2., r, 'orange')<br>ax5.grid(True)<br><br>ax6 = fig.add_subplot(236)<br>ax6.plot(x, x, 'r')<br>ax6.grid(True)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_12/figure_1.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <p>
+                                Вообще говоря matplotlib позволяет рисовать не только 
+                                в полярной системе координат, но и в других. 
+                                За это отвечает параметр projection, который в случае равенства 
+                                значению 'polar' аналогичен значению параметра polar=True. 
+                                В matplotlib поддерживаются следующие проекции: 
+                                '<b class="red">aitoff</b>', '<b class="red">hammer</b>', 
+                                '<b class="red">lambert</b>', '<b class="red">mollweide</b>', 
+                                '<b class="red">polar</b>', '<b class="red">rectilinear</b>'. 
+                                Чаще всего используются два последних варианта, остальные 
+                                являются экзотическими для рутинных задач в научной графике.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib.pyplot as plt<br>import numpy as np<br><br>a = 1.<br>x = np.arange(-2*np.pi, 2*np.pi, 0.2)<br>y = np.sin(x) * np.cos(x)<br># Уравнение кардиойды<br>xz = a*(2*np.cos(x) - np.cos(2*x))<br>yz = a*(2*np.sin(x) - np.sin(2*x))<br><br>label = ['aitoff',<br>        'hammer',<br>        'lambert',<br>        'mollweide',<br>        'polar',<br>        'rectilinear']<br><br>fig = plt.figure(figsize=(10,6))<br><br>for i in range(len(label)):<br>    ax = fig.add_subplot(231+i, projection=label[i])<br>    ax.plot(xz, yz)<br>    ax.set_title(label[i], color='r', pad=15)<br>    ax.grid(linestyle='dashed')<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_12/figure_2.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Роза ветров</h4>
+                            <p>С помощью polar plots можно построить особый вид графиков - "розу ветров".</p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from math import pi<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>lag = pi/4.<br>angles = np.arange(0, 2*pi , lag)<br><br>fig = plt.figure(figsize=(10,5))<br># зададим явно размер полотна, <br>#чтобы графики не перекрывались<br><br>for i in range(1, 3):<br>    r = np.random.random(len(angles))<br>    # для каждой розы значения будут разные<br>    ax = fig.add_subplot(120+i, projection='polar')<br>    ax.plot(angles, r, color='r', linewidth=1.)<br>    # Так как 0 и 2*pi - это одна и та же точка,<br>    #то значение в ней должно быть одно<br>    # Однако, будет разрыв между последней точкой и нулевой.<br>    # Чтобы его убрать, искусственно соединим эти точки.<br>    # Замыкаем розу ветров (соединяем конец с началом)<br>    ax.plot((angles[-1],angles[0]),<br>            (r[-1],r[0]), color='r',<br>            linewidth=1.)<br>    # Изменяем направление обхода с<br>    #"против часовой" на "по часовой"<br>    ax.set_theta_direction(-1)<br>    # Смещаем нулевую или полярную ось на 90 градусов<br>    #против часовой стрелки, в положение "север"<br>    ax.set_theta_offset(pi/2.0)<br>    ax.set_title(u"Роза ветров N%d" % i, loc='center')<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_12/figure_3.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Настройка графика в полярных координат</h4>
+                            <p>
+                                Полярный график по сути ничем не отличается от 
+                                привычного прямоугольного графика. Соответственно, 
+                                практически все пользовательские настройки осуществляются аналогично.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from math import pi<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>lag = pi/4.<br>angles = np.arange(0, 2*pi , lag)<br><br>fig = plt.figure(figsize=(10,5))<br># зададим явно размер полотна,<br>#чтобы графики не перекрывались<br><br>r = np.random.random(len(angles))<br># для каждой розы значения будут разные<br><br>ax = fig.add_subplot(111, projection='polar')<br>ax.plot(angles, r, color='r', linewidth=1.)<br># Так как 0 и 2*pi - это одна и та же точка,<br>#то значение в ней должно быть одно<br># Однако, будет разрыв между<br>#последней точкой и нулевой.<br># Чтобы его убрать,<br>#искусственно соединим эти точки.<br><br># Замыкаем розу ветров<br>#(соединяем конец с началом)<br>ax.plot((angles[-1],angles[0]),<br>                    (r[-1],r[0]),<br>                    color='r',<br>                    linewidth=1.)<br><br># Изменяем направление обхода с<br>#"против часовой" на "по часовой"<br>ax.set_theta_direction(-1)<br><br># Смещаем нулевую или полярную ось на<br>#90 градусов против часовой стрелки, в положение "север"<br>ax.set_theta_offset(pi/2.0)<br><br>ax.set_title(u"Роза ветров", loc='center', pad=15)<br><br>old_rticks = ax.get_yticks()<br>old_phiticks = ax.get_xticks()<br><br>new_rticks = np.arange(0, 1.2, 0.2)<br>new_phiticks = np.arange(0, 2*np.pi, np.pi/12.)<br>ax.set_xticks(new_phiticks)<br>ax.set_yticks(new_rticks)<br><br>#ax.set_thetagrids(new_phiticks)<br><br>ax.grid(axis='y', color='blue', linestyle='--')<br>ax.grid(axis='x', color='red', linestyle='--')<br><br>print('old r:', old_rticks)<br>print('old phi:', old_phiticks)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_12/figure_4.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <p>
+                                У полярной системы координат есть специальные функции, 
+                                которые позволяют настраивать внешний вид рисунка.
+                            </p>
+                            <p>Для радиуса <b class="red">R</b>:</p>
+                            <ul>
+                                <li>
+                                    <b class="red">ax.set_rlabel_position(phi)</b> - 
+                                    перемещает ось ординат (радиус) по кругу на 
+                                    угол phi (в ГРАДУСАХ) от положения нуля;
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_rmax(R)</b> - 
+                                    позволяет ограничить область изменения радиуса 
+                                    R на рисунке;
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_rmin(R)</b> - 
+                                    позволяет ограничить область изменения радиуса R на рисунке;
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_rlim()</b> - 
+                                    позволяет ограничить область изменения 
+                                    радиуса R на рисунке;
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_rscale()</b> - 
+                                    позволяет сделать шкалу радиусов логарифмической;
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_rgrid()</b> - 
+                                    позволяет настроить для оси радиуса 
+                                    вспомогательную сетку, положения делений, 
+                                    формат подписей к ним и т.д.;
+                                </li>
+                            </ul>
+                            <p>Для угла <b class="red">phi</b> (в matplotlib он называется theta):</p>
+                            <ul>
+                                <li>
+                                    <b class="red">ax.set_theta_zero_location(loc)</b> - 
+                                    перемещает положение нуля на определённое положение. 
+                                    Loc принимает значения 
+                                    '<b class="red">N</b>', '<b class="red">NW</b>', 
+                                    '<b class="red">W</b>', '<b class="red">SW</b>', 
+                                    '<b class="red">S</b>', '<b class="red">SE</b>', 
+                                    '<b class="red">E</b>' или '<b class="red">NE</b>'. 
+                                    По умолчанию положение нуля находится в положении "восток" или "3 часа";
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_theta_offset(phi)</b> - 
+                                    перемещает положение нуля на угол phi (в радианах) . 
+                                    По умолчанию положение нуля находится в положении "восток" или "3 часа";
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_theta_direction(loc)</b> - 
+                                    определяет направление обхода. 
+                                    Loc может быть либо -1 или по часовой стрелке 
+                                    и 1 или против часовой стрелки;
+                                </li>
+                                <li>
+                                    <b class="red">ax.set_thetagrids()</b> - 
+                                    позволяет настроить для оси углов вспомогательную сетку, 
+                                    положения делений, формат подписей к ним и т.д.
+                                </li>
+                            </ul>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from math import pi<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>lag = pi/8.<br>angles = np.arange(0, 2*pi , lag)<br><br>fig = plt.figure(figsize=(10,5))<br># зададим явно размер полотна,<br>#чтобы графики не перекрывались<br><br>r = np.random.random(len(angles))<br># для каждой розы значения будут разные<br><br>ax = fig.add_subplot(111, projection='polar')<br><br>ax.plot(angles, r, color='r', linewidth=1.)<br>ax.plot((angles[-1],angles[0]),<br>                (r[-1],r[0]),<br>                color='r',<br>                linewidth=1.)<br><br># Изменяем направление обхода<br>#с "против часовой" на "по часовой"<br>ax.set_theta_direction(1)<br># Помещаем положение нуля в положение "север"<br>ax.set_theta_zero_location('N')<br># Перемещаем ось радиусов<br>ax.set_rlabel_position(270)<br><br>old_rticks = ax.get_yticks()<br>old_phiticks = ax.get_xticks()<br><br># Ограничиваем радиус<br>#ax.set_rmin(0.0)<br>#ax.set_rmax(0.9)<br>ax.set_rlim(0.0, 0.9)<br><br>small_lag = 0.01<br># метод set_rgrids требует<br>#строго положительного первого значения!<br>new_rticks = np.arange(0.0, 1.2, 0.2) + small_lag<br>new_phiticks = np.arange(0., 360., 10.)<br><br>ax.set_thetagrids(new_phiticks,<br>                labels=map(int, new_phiticks),<br>                fontsize=14,<br>                color='k')<br>ax.set_rgrids(new_rticks,<br>            fontsize=12,<br>            color='b',<br>            rotation=90.)<br><br>ax.grid(True, axis='y', color='k', linestyle='-')<br>ax.grid(True, axis='x', color='w', linestyle='-')<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_12/figure_5.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <p>
+                                Настройка легенды у графика в полярных координат 
+                                ничем не отличается от работы с легендой у графика 
+                                в декартовых координатах.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from math import pi<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>lag = pi/8.<br>angles = np.arange(0, 2*pi , lag)<br><br>fig = plt.figure(figsize=(10,5))<br>#зададим явно размер полотна,<br>#чтобы графики не перекрывались<br><br>r = np.random.random(len(angles))*10.<br>r2 = np.random.random(len(angles))*10.<br>ax = fig.add_subplot(111, projection='polar')<br><br>ax.plot(angles, r, color='r', linewidth=1.)<br>ax.plot((angles[-1],angles[0]),<br>                    (r[-1],r[0]),<br>                    color='r',<br>                    linewidth=1.,<br>                    label=u'Роза 1')<br><br>ax.plot(angles, r2, color='b', linewidth=1.)<br>ax.plot((angles[-1], angles[0]),<br>                    (r2[-1],r2[0]),<br>                    color='b',<br>                    linewidth=1.,<br>                    label=u'Роза 2')<br><br>#Изменяем направление обхода с<br>#"против часовой" на "по часовой"<br>ax.set_theta_direction(1)<br><br># Помещаем положение нуля в положение "север"<br>ax.set_theta_zero_location('N')<br><br># Перемещаем ось радиусов<br>ax.set_rlabel_position(270)<br><br>old_rticks = ax.get_yticks()<br>old_phiticks = ax.get_xticks()<br><br># Ограничиваем радиус<br>#ax.set_rmin(0.0)<br>#ax.set_rmax(0.9)<br>ax.set_rlim(0.0, 0.9)<br><br>#метод set_rgrids требует строго<br>#положительного первого значения!<br>small_lag = 0.01<br>new_rticks = np.arange(0, 11, 1) + small_lag<br>new_phiticks = np.arange(0., 360., 20.)<br><br>ax.set_thetagrids(new_phiticks,<br>            labels=map(int, new_phiticks),<br>            fontsize=12,<br>            color='k')<br>ax.set_rgrids(new_rticks,<br>                fontsize=12,<br>                fmt='%d',<br>                color='k')<br><br>ax.grid(True, axis='y',<br>            color='k', linestyle='-')<br>ax.grid(True, axis='x',<br>            color='w', linestyle='-')<br><br>ax.legend(ncol=1, loc=2,<br>            frameon=True, fontsize=14)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_12/figure_6.png" class="image" height="200" alt="lorem">
+                            </div>
+                        </div>
+                        <h3 id="15.13">15.13 Легенда:</h3>
+                        <div class="text-in-card">
+                            <p>
+                                <b class="red">Легенда</b> - это ключ к пониманию сложного графика. 
+                                Чтобы повысить читаемость рисунка, нужно стараться делать так, 
+                                чтобы все использованные условные обозначения легко расшифровывались. 
+                                Немаловажным аспектом этого является правильное размещение 
+                                и представление легенды.
+                            </p>
+                            <h4>Легенда</h4>
+                            <p>Создание легенды подразумевает два логических этапа.</p>
+                            <ul>
+                                <li><i>Формирование подписей к условным обозначениям;</i></li>
+                                <li><i>Отображение легенды на рисунке;</i></li>
+                            </ul>
+                            <p>
+                                Самый простой способ сформировать подписи к графическим элементам - 
+                                использовать атрибут <b class="red">label</b> в графических командах типа 
+                                plot(), scatter() и др. Параметр label принимает текст в виде строки, 
+                                который "привязывается" к породившему их графическому элементу 
+                                (линия, маркер, диаграмма и т.д.).
+                            </p>
+                            <p>
+                                Отображение легенды осуществляется либо методом 
+                                <b class="red">plt.legend()</b> для всего рисунка, либо 
+                                <b class="red">ax.legend()</b> для конкретной области рисования. 
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib.pyplot as plt<br>import numpy as np<br><br>a = 1<br>x = np.arange(-2*np.pi, 2*np.pi, 0.2)<br>y = np.sin(x) * np.cos(x)<br>f = np.sin(x) + np.cos(x)<br>xz = a*(2*np.cos(x) - np.cos(2*x))<br>yz = a*(2*np.sin(x) - np.sin(2*x))<br><br># Способ 1 с помощью label<br>plt.plot(x, f, label = u'Сумма cos и sin')<br>plt.scatter(x, y, label = u'Произведение cos и sin',<br>                                    color='r')<br>plt.plot(xz, yz, label = u'Кардиоида')<br><br>plt.grid()<br>plt.xlabel(u'Аргумент')<br>plt.ylabel(u'Функция')<br>plt.title(u'Несколько графиков')<br><br>plt.legend()<br># легенда для всего рисунка fig<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_13/figure_1.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <p>
+                                При создании легенды методом <b class="red">ax.legend()</b>, 
+                                легенда будет отображаться на текущей области рисования ax.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib.pyplot as plt<br>import numpy as np<br><br>a = 1<br>x = np.arange(-2*np.pi, 2*np.pi, 0.2)<br>y = np.sin(x) * np.cos(x)<br>f = np.sin(x) + np.cos(x)<br>xz = a*(2*np.cos(x) - np.cos(2*x))<br>yz = a*(2*np.sin(x) - np.sin(2*x))<br><br>fig = plt.figure()<br>fig, axes = plt.subplots(nrows=2,<br>            ncols=1, sharex=True)<br><br>for i,ax in enumerate(fig.axes):<br>    ax.plot(x, f, label = u'Линия1 ax%d' % i)<br>    ax.scatter(x, y, label = u'Маркеры ax%d' % i, color='r')<br>    ax.plot(xz, yz, label = u'Линия2 ax%d' % i)<br>    ax.grid(True)<br>    ax.set_xlabel(u'Аргумент')<br>    ax.set_ylabel(u'Функция')<br>    ax.set_title(u'Несколько графиков')<br>    ax.legend(loc='best', frameon=False)<br>    # легенда для области рисования ax<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_13/figure_2.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <p>
+                                Существует и другой способ создания 
+                                (формирование подписей + отображение на рисунке) легенды.
+                            </p>
+                            <p>
+                                Можно в самом методе <b class="red">legend()</b> 
+                                указать последовательность(список, кортеж), 
+                                состоящую из подписей графических элементов. 
+                                Здесь стоит сказать, что для создания корректной легенды 
+                                этим методом, нужно знать последовательность появления 
+                                графических объектов на рисунке. При этом стоит помнить о 
+                                группировке типов графических объектов 
+                                (линии к линиям, маркеры к маркерам, диаграммы к диаграммам и т.д.).
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from matplotlib import rcParams<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>rcParams['font.family'] = 'Times New Roman',<br>                            'Arial', 'Tahoma'<br>rcParams['font.fantasy'] = 'Times New Roman'<br><br>a = 1<br>x = np.arange(-2*np.pi, 2*np.pi, 0.2)<br>y = np.sin(x) * np.cos(x)<br>f = np.sin(x) + np.cos(x)<br>xz = a*(2*np.cos(x) - np.cos(2*x))<br>yz = a*(2*np.sin(x) - np.sin(2*x))<br><br># Способ 2 с помощью label<br>plt.plot(x, f, 'b')<br>plt.scatter(x, y, color='b')<br>plt.bar(x, y, color='g', alpha=0.25)<br>plt.plot(xz, yz, 'r')<br>plt.scatter([-5.,6], [-2., -1], color='r')<br><br>plt.grid(True)<br>plt.xlabel(u'Аргумент')<br>plt.ylabel(u'Функция')<br>plt.title(u'Несколько графиков')<br><br>lab1 = u'cos + sin'<br>lab2 = u'cos * sin'<br>lab2_5 = u'диаграмма'<br>lab3 = u'Кардиоида'<br>lab4 = u'две точки'<br><br>plt.legend((lab1, lab3, lab2, lab4, lab2_5),<br>                                frameon=False)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_13/figure_3.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <hr>
+                            <p>
+                                Если легенда объединяет несколько типов 
+                                графических элементов 
+                                (plot(), scatter(), bar()), то они будут группироваться: 
+                                сначала линии, потом маркеры, потом диаграммы. 
+                                При использовании метода прямой передачи подписей для 
+                                создания легенды следует быть особенно внимательным, 
+                                так как иначе подписи могут быть приписаны не к тем 
+                                графическим элементам.
+                            </p>
+                            <hr>
+                            <p>
+                                Расположение легенды определяется параметром 
+                                <b class="red">loc</b>, который принимает значения в виде цифр 
+                                (<b class="red">1-9</b>), начиная от верхнего левого угла и заканчивая 
+                                нижним правым, и в виде условных обозначений. Значение 
+                                <b class="red">loc='best'</b> автоматически выберет место на рисунке, 
+                                где легенда меньше всего будет "портить" график. 
+                                Также можно убрать рамку вокруг легенды для уменьшения места 
+                                (<b class="red">frameon=False</b>), занимаемого легендой, снижая тем 
+                                самым геометрическое давление рисунка в целом.
+                            </p>
+                            <h4>Легенда на отдельной области рисования</h4>
+                            <p>
+                                Для мультиоконных рисунков или графиков с 
+                                несколькими областями рисования, общая легенда может быть 
+                                размещена как на одной из существующих областей рисования, 
+                                так и на отдельной области рисования.
+                            </p>
+                            <p>
+                                Новая область рисования для размещения легенды должна 
+                                быть вписана в существующий рисунок figure. 
+                                Это значит, что на рисунке необходимо выделить дополнительное 
+                                место для легенды, помимо существующих на рисунке областей 
+                                рисования типа subplots или axes ("мультиокна"). 
+                                Изменить размеры объединённой области рисования для 
+                                subplots и axes можно с помощью параметров rcParams:
+                            </p>
+                            <ul>
+                                <li><b class="red">rcParams['figure.subplot.left'] = 0.125</b></li>
+                                <li><b class="red">rcParams['figure.subplot.right'] = 0.9</b></li>
+                                <li><b class="red">rcParams['figure.subplot.bottom'] = 0.125</b></li>
+                                <li><b class="red">rcParams['figure.subplot.top'] = 0.9</b></li>
+                                <li><b class="red">rcParams['figure.subplot.hspace'] = 0.2</b></li>
+                                <li><b class="red">rcParams['figure.subplot.wspace'] = 0.2</b></li>
+                            </ul>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from random import randint, choice<br>from matplotlib import rcParams<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>x = np.arange(-2*np.pi, 2*np.pi, 0.2)<br><br>fig, axes = plt.subplots(nrows=2,<br>                        ncols=2,<br>                        sharex=True)<br><br># Обрати внимание!<br>rborder = 0.75<br>rcParams['figure.subplot.right'] = rborder<br>rcParams['figure.subplot.hspace'] = 0.15<br>rcParams['figure.subplot.wspace'] = 0.15<br><br>lns = []<br>for i, ax in enumerate(fig.axes):<br>    y = np.sin(x)*randint(1, 5)<br>    line = ax.plot(x, y, label = u'График %d' % i,<br>                    color=choice(['r','b','k','g']))<br>    if i > 1:<br>        ax.set_xlabel(u'Аргумент')<br>    if i%2 == 0:<br>        ax.set_ylabel(u'Функция %d' % i)<br>    ax.grid(True, color='grey')<br>    ax.set_title(u'subplot %d' % i)<br>    lns = lns + line<br><br>ax2 = fig.add_axes(<br>            [rborder, 0.6, 1.-rborder, 0.15],<br>            frameon=False)<br>labs = [l.get_label() for l in lns]<br>ax2.legend(lns, labs, loc=3, frameon=True)<br><br># Скрываем координатные оси<br>ax2.set_axis_off()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_13/figure_4.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <p>
+                                В случае, скажем, столбчатых диаграмм 
+                                (<b class="red">метод bar()</b>), схема работы с легендой 
+                                аналогичная.
+                            </p>
+                            <p>
+                                Обратите внимание, что методы типа bar возвращают 
+                                не графический примитив (плоская линия в случае метода 
+                                <b class="red">ax.plot()</b>), а контейнер, то есть "ящик", 
+                                в котором хранятся графические примитивы. 
+                                Поэтому нельзя использовать простое сложение объектов, 
+                                как было показано в примере с линиями. Как вариант можно использовать 
+                                метод списков <b class="red">append()</b>.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">from random import randint, choice<br>from matplotlib import rcParams<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>x = np.arange(-2*np.pi, 2*np.pi, 0.2)<br><br>fig, axes = plt.subplots(nrows=2,<br>                        ncols=2,<br>                        sharex=True)<br><br># Обрати внимание!<br>rborder = 0.75<br>rcParams['figure.subplot.right'] = rborder<br>rcParams['figure.subplot.hspace'] = 0.15<br>rcParams['figure.subplot.wspace'] = 0.15<br><br>lns = []<br>for i, ax in enumerate(fig.axes):<br>    y = np.sin(x)*randint(1, 5)<br>    z = np.cos(x)*randint(1, 5)<br>    bar1 = ax.bar(x, y, width=0.4,<br>                label = u'Диаграмма %d-1' % i,<br>                color=choice(['r','b','pink','violet']))<br>    print('%d Тип данных bar' % i, type(bar1), bar1)<br>    bar2 = ax.bar(x, z, width=0.4,<br>                label = u'Диаграмма %d-2' % i,<br>                color=choice(['k','g','w','cyan']))<br>    if i > 1:<br>        ax.set_xlabel(u'Аргумент')<br>    if i%2 == 0:<br>        ax.set_ylabel(u'Функция %d' % i)<br>    ax.grid(True, color='grey')<br>    ax.set_title(u'subplot %d' % i)<br>    # Сравни с предыдущим примером<br>    lns.append(bar1)<br>    lns.append(bar2)<br><br>ax2 = fig.add_axes([rborder, 0.35, 1.-rborder, 0.5],<br>                                    frameon=False)<br>#lns<br>#print type(lns), type(lns[0]), lns[0]<br><br>labs = [l.get_label() for l in lns]<br>ax2.legend(lns, labs, loc=3, frameon=True)<br><br># Скрываем координатные оси области рисования ax2<br>ax2.set_axis_off()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_13/figure_5.png" class="image" height="200" alt="lorem">
+                            </div>
+                        </div>
+                        <h3 id="15.14">15.14 Цветовая шкала:</h3>
+                        <div class="text-in-card">
+                            <p>
+                                <b class="red">Цветовая шкала colorbar</b> - 
+                                это аналог легенды для отображения трёхмерных полей, 
+                                заданных обычно в виде матрицы или двумерного массива. 
+                                Цветовая шкала является неотъемлемой частью рисунков, 
+                                создаваемых с помощью методов 
+                                <b class="red">ax.contour()</b>, 
+                                <b class="red">ax.contourf()</b>, 
+                                <b class="red">ax.imshow()</b>, 
+                                <b class="red">ax.pcolor()</b>, 
+                                <b class="red">ax.scatter()</b>.
+                            </p>
+                            <p>
+                                Каждая цветовая шкала является по сути ещё 
+                                одной областью рисования Axes. Это значит, 
+                                что она имеет такие же методы и атрибуты, 
+                                как и обычные экземпляры типа Axes или AxesSubplot. 
+                                Имеются у неё и свои особенности.
+                            </p>
+                            <h4>Цветовая шкала <b class="red">colorbar</b></h4>
+                            <p>
+                                Цветовая шкала, которая связывает цвет и числовые значения, 
+                                отображаемые на рисунке тем или иным графическим методом, 
+                                является самостоятельным элементом на рисунке. 
+                                Цветовая шкала может быть создана при условии, 
+                                что на рисунке существует "mappable-object". 
+                                К таким объектам относятся результаты выполнения 
+                                графических команд 
+                                <b class="red">cs=ax.pcolor()</b>, 
+                                <b class="red">cs=ax.contourf()</b>, 
+                                <b class="red">cs=ax.imshow()</b> и др.
+                            </p>
+                            <p>
+                                Если условие на наличие "mappable" объекта на рисунке выполнено, 
+                                то при использовании метода 
+                                <b class="red">plt.colorbar()</b> или 
+                                <b class="red">fig.colorbar()</b> на рисунке будет 
+                                отображена цветовая шкала.
+                            </p>
+                            <p>
+                                Цветовая шкала может располагаться непросредственно на графике 
+                                (привязывается к конкретной области рисования ax через атрибут 
+                                "<b class="red">cax</b>"), так и рядом с ним 
+                                (привязывается через атрибут "<b class="red">ax</b>"). 
+                                И то и другое отрисовывается на текущей области рисования, 
+                                однако в первом случае она именуется для цветовой шкалы 
+                                как просто область рисования axes, а вторая - как родительская область 
+                                рисования (parent axes). Обычно удобнее располагать цветовую шкалу 
+                                вне графика или диаграммы, отдавая часть текущей области рисования 
+                                под цветовую шкалу (см. атрибут <b class="red">fraction</b>). 
+                                Хотя это и не обязательно, лучше напрямую "привязать" 
+                                цветовую шкалу к конкретной области рисования ax через атрибут 
+                                <b class="red">colorbar "ax"</b>. По умолчанию, без указания данного 
+                                атрибута, реализуется именно такой вариант для текущей области рисования, 
+                                а если её нет, то создаётся новая. Если же необходимо отобразить цветовую 
+                                шкалу на самом графике, то нужно воспользоваться атрибутом 
+                                "<b class="red">cax</b>". Оба атрибута принимают экземпляры 
+                                <b class="red">Axes</b> или <b class="red">AxesSubplot</b>.
+                            </p>
+                            <p>
+                                Метод <b class="red">fig.colorbar()</b> имеет следующие параметры, 
+                                определяющие внешний вид шкалы:
+                            </p>
+                            <ul>
+                                <li>
+                                    <b class="red">ticks [None | list of ticks | Locator object]</b>- 
+                                    задаёт положение делений на шкале в виде 
+                                    последовательности или массива;
+                                </li>
+                                <li>
+                                    <b class="red">extend ['neither' | 'both' | 'min' | 'max']</b> - 
+                                    позволяет задать на концах шкалы значения "больше чем" 
+                                    и/или "меньше чем" в виде цветных треугольников. 
+                                    Цвета треугольников задаются методами 
+                                    <b class="red">cmap.set_over('цвет')</b> и 
+                                    <b class="red">cmap.set_under('цвет')</b> 
+                                    для текущей цветовой палитры cmap;
+                                </li>
+                                <li>
+                                    <b class="red">extendfrac [ None | 'auto' | length | lengths]</b> - 
+                                    определяет размер треугольного интервала цветовой шкалы 
+                                    (будет показано на рисунке, если атрибут "<b class="red">extend</b>" 
+                                    определён "положительно"). 
+                                    По умолчанию он определяется как 0.05 длины шкалы. 
+                                    Если '<b class="red">auto</b>', то длина треугольника 
+                                    равна длине остальных интервалов 
+                                    (при условии, если атрибут <b class="red">spacing='uniform</b>') или пропорциональна 
+                                    доле данных, попадающих в данный интервал 
+                                    (если <b class="red">spacing='proportional</b>'). 
+                                    Если задано число, то оно определяет длину обоих треугольников и 
+                                    для минимума и для максимума в виде доли длины цветовой шкалы. 
+                                    Можно задать два значения в виде списка - отдельно для минимума, 
+                                    отдельно для максимума;
+                                </li>
+                                <li>
+                                    <b class="red">spacing ['uniform' | 'proportional']</b> - 
+                                    <b class="red">uniform</b> задаёт одинаковую длину для каждого отрезка шкалы; 
+                                    <b class="red">proportional</b> определяет длину делений пропорционально долям данных, 
+                                    попадающих в градации шкалы;
+                                </li>
+                                <li>
+                                    <b class="red">format [ None | format string | Formatter object ]</b> - 
+                                    задаёт формат для подписей значений цветовой шкалы;
+                                </li>
+                                <li>
+                                    <b class="red">drawedges [ False | True ]</b> - 
+                                    если True, между интервалами будут нарисованы линии;
+                                </li>
+                            </ul>
+                            <p>
+                                Также есть параметры, которые определяют размеры, 
+                                положение colorbar на области рисования шкалы:
+                            </p>
+                            <ul>
+                                <li>
+                                    <b class="red">orientation ['vertical' | 'horizontal']</b> - 
+                                    определяет ориентацию цветовой шкалы (вертикальное или горизонтальное);
+                                </li>
+                                <li>
+                                    <b class="red">fraction=0.15</b> - 
+                                    доля площади родительской области рисования axes, 
+                                    на которой будет нарисована colorbar;
+                                </li>
+                                <li>
+                                    <b class="red">pad [0.05 для вертикального, 0.15 для горизонтального положения]</b> - 
+                                    расстояние в долях от размеров исходной области рисования axes 
+                                    между цветовой шкалой и новым изображением области рисования;
+                                </li>
+                                <li>
+                                    <b class="red">shrink=1.0</b> - доля, на которую цветовая шкала будет сжата;
+                                </li>
+                                <li>
+                                    <b class="red">aspect=20</b> - 
+                                    соотношение во сколько раз длинная сторона шкалы больше короткой;
+                                </li>
+                            </ul>
+                            <p>
+                                Обычно ссылку на результат метода <b class="red">fig.colorbar()</b> передают 
+                                в какую-либо переменную, например cbar. Это удобно для последующей 
+                                настройки цветовой шкалы.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import numpy as np<br>import matplotlib.pyplot as plt<br>import matplotlib as mpl<br><br>a = np.random.random(100)*10.<br>a = a.reshape(10,10)<br><br>fig = plt.figure(figsize=(12,4))<br><br>N = 7<br>bounds = np.linspace(np.min(a), np.max(a), N+1)<br>print(bounds)<br>cmap = mpl.cm.get_cmap('RdBu', N)<br><br>ax = fig.add_subplot(131)<br>cs = ax.pcolor(a, cmap=cmap)<br>#вызываем метод pcolor.<br>#Вводим пользовательскую раскраску через cmap<br>print(u'Тип CS: %s' % type(cs))<br>cbar = fig.colorbar(cs, ax=ax)<br># рисуем шкалу colorbar для изображения cs.<br>#В качестве черточек шкалы указываем bounds.<br>print(u'Тип CBAR: %s' % type(cbar))<br># ticks=bounds<br># ---------------------------------------------------<br><br>ax2 = fig.add_subplot(132)<br>bounds = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]<br>cmap = mpl.cm.get_cmap('ocean', len(bounds)-1)<br>cmap.set_over('red')<br>cmap.set_under('grey')<br>cs = ax2.pcolor(a, cmap=cmap,<br>            vmin=bounds[0], vmax=bounds[-1])<br># Ставим границы для шкалы vmin и vmax.<br>cbar = fig.colorbar(cs, ax=ax2, ticks=bounds,<br>                extend='max', extendfrac=0.1)<br>ax2.grid(True)<br>cmap.set_over('pink')<br># ---------------------------------------------------<br><br>ax3 = fig.add_subplot(133)<br>cs = ax3.imshow(a, cmap=cmap,<br>            vmin=bounds[0], vmax=bounds[-1])<br># В методе pcolor/pcolormesh/imshow присваиваем<br>#пользовательские границы цветов norm<br>cbar = fig.colorbar(cs, ax=ax3, ticks=bounds,<br>                            extend='both',<br>                            extendfrac='auto',<br>                            orientation='horizontal')<br>ax3.grid(True)<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_1.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Подпись цветовой шкалы</h4>
+                            <p>
+                                Подпись к шкале осуществляется методом 
+                                <b class="red">cbar.set_label()</b>. 
+                                Однако, мы помним, что цветовая шкала - это особая область рисования, 
+                                а значит ей доступны и другие методы для создания подписей.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import numpy as np<br>import matplotlib.pyplot as plt<br>import matplotlib as mpl<br>from matplotlib.ticker import MultipleLocator<br><br>a = np.random.random(100)*10.<br>a = a.reshape(10,10)<br><br>fig = plt.figure(figsize=(14,4))<br><br>N = 7<br>bounds = np.linspace(np.min(a),<br>                np.max(a), N+1)<br>print(u'Положение делений на цветовой шкале subplot 1')<br>print(bounds)<br>cmap = mpl.cm.get_cmap('gnuplot', N)<br><br>ax = fig.add_subplot(131)<br><br># вызываем метод pcolor.<br>#Вводим пользовательскую раскраску через cmap<br>cs = ax.pcolor(a, cmap=cmap,<br>                vmin=bounds[0],<br>                vmax=bounds[-1])<br>cbar = fig.colorbar(cs, ax=ax,<br>            pad=0.01, aspect=30)<br># pad=0.01 приближает шкалу близко к графику<br>ax.set_title(u'Подбор делений под количество цветов')<br># ---------------------------------------------------<br><br>bounds = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]<br><br>ax2 = fig.add_subplot(132)<br>formatter2 = MultipleLocator(2)<br>cmap = mpl.cm.get_cmap('cool',<br>                len(bounds)-1)<br>cmap.set_over('red')<br>cmap.set_under('grey')<br>cs = ax2.pcolor(a, cmap=cmap)<br># Ставим границы для шкалы vmin и vmax.<br>cbar = fig.colorbar(cs, ax=ax2,<br>                ticks=formatter2,<br>                fraction=0.1,<br>                drawedges=True,<br>                extend='min',<br>                extendfrac='auto')<br># методы ax.set_xlabel() и ax.set_ylabel()<br>cbar.ax.set_ylabel(u'Правая подпись цветовой шкалы',<br>                        rotation=270, labelpad=10)<br>cbar.ax.set_xlabel(u'OX', labelpad=10,<br>                    rotation=90, position=(1.,0.))<br>ax2.set_title(u'Заголовок')<br>ax2.grid(True)<br><br>ax3 = fig.add_subplot(133)<br>cmap = mpl.cm.get_cmap('brg', len(bounds)-1)<br>cmap.set_over('white')<br>cmap.set_under('grey')<br>cs = ax3.pcolor(a, cmap=cmap,<br>            vmin=bounds[0], vmax=bounds[-1])<br># В методе pcolor/pcolormesh/imshow присваиваем<br>#пользовательские границы цветов norm<br>cbar = fig.colorbar(cs, ax=ax3, ticks=bounds,<br>                        extend='both',<br>                        extendfrac='auto',<br>                        pad=0.075,<br>                        orientation='horizontal',<br>                        drawedges=True,<br>                        aspect=15)<br><br>ax3.set_title(u'Масштабирование цветовой шкалы')<br>cbar.set_label(u'Подпись цветовой шкалы 14',<br>                    fontsize=14, labelpad=0)<br>cbar.ax.tick_params(labelsize=12)<br>ax3.grid(True)<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_2.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Положение цветовой шкалы на области рисования</h4>
+                            <p>Метод <b class="red">fig.colorbar()</b> принимает три необязательных параметра:</p>
+                            <ul>
+                                <li>
+                                    <b class="red">mapable</b> - собственно объект, 
+                                    с которым связана цветовая шкала;
+                                </li>
+                                <li>
+                                    <b class="red">ax</b> - родительская область рисования 
+                                    (экземпляр Axes или AxesSubplot), из пространства которой будет 
+                                    выделяться место для расположения цветовой шкалы. 
+                                    Шкала будет создана вне графика-диаграммы.
+                                </li>
+                                <li>
+                                    <b class="red">cax</b> - область рисования в которой 
+                                    будет нарисована цветовая шкала. 
+                                    Шкала будет создана "на графике".
+                                </li>
+                            </ul>
+                            <p>
+                                Собственно, третий параметр "<b class="red">cax</b>" 
+                                позволяет рисовать цветовую шкалу в любом месте соответствующей 
+                                области рисования. Стоит отметить, что cax в качестве 
+                                входящих данных берёт экземпляр axes. Чтобы расположить цветовую шкалу 
+                                в заданной области рисунка, необходимо знать границы соответствующей 
+                                области рисования ax. Иначе цветовая шкала скорее всего 
+                                перекроет область, где отображается график или диаграмма. 
+                                Границы текущей области рисования ax можно узнать при выводе 
+                                на экран экземпляра axes (print ax). Для автоматизации можно 
+                                использовать следующий приём:
+                            </p>
+                            <ul>
+                                <li><b class="red">bbox = ax.get_position()</b>;</li>
+                                <li><b class="red">rect = bbox.bounds</b>;</li>
+                            </ul>
+                            <p>
+                                Здесь <b class="red">rect</b> - это кортеж границ 
+                                соответсвтующей области рисования ax 
+                                ([левая граница, нижняя граница, ширина, высота]). 
+                                Отступив от неё какое-то фиксированное расстояние 
+                                (в долях от всей ширины-высоты), можно автоматизированно 
+                                рисовать в нужном месте цветовую шкалу colorbar. 
+                                Такой метод прямого размещения плохо работает с методом 
+                                <b class="red">plt.tight_layout()</b>, 
+                                но при тонкой настройке он вряд ли потребуется.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import numpy as np<br>import matplotlib.pyplot as plt<br>import matplotlib as mpl<br><br>a = np.random.random(100)*10.<br>a = a.reshape(10,10)<br><br>fig = plt.figure(1,(14,4))<br><br>N = 7<br>bounds = np.linspace(np.min(a), np.max(a), N+1)<br>print(u'Положение делений на цветовой шкале subplot 1')<br>print(bounds)<br>cmap = mpl.cm.get_cmap('gnuplot', N)<br>#---------------------------------------------------<br><br>ax2 = fig.add_subplot(121)<br>print(u'Область рисования ax имеет следующие границы')<br>print(ax2)<br>bbox = ax2.get_position()<br>rect = list(bbox.bounds)<br>#rect[0] = rect[0]<br>rect[0] = rect[0] - 0.025<br>rect[2] = 0.01<br>cax = fig.add_axes(rect)<br><br>bounds = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]<br>cmap = mpl.cm.get_cmap('PiYG', len(bounds)-1)<br>cmap.set_over('red')<br>cmap.set_under('grey')<br>cs = ax2.pcolor(a, cmap=cmap,<br>            vmin=bounds[0], vmax=bounds[-1])<br># Ставим границы для шкалы vmin и vmax.<br>cbar = fig.colorbar(cs, cax=cax, ax=ax2,<br>                        ticks=bounds,<br>                        drawedges=True,<br>                        extend='min',<br>                        extendfrac='auto')<br>cbar.ax.set_ylabel(u'Левая подпись цветовой шкалы OY',<br>                            rotation=90, labelpad=10)<br>cbar.ax.set_xlabel(u'Нижняя подпись цветовой шкалы',<br>                                        labelpad=20)<br><br>ax2.yaxis.set_ticks_position('right')<br>cbar.ax.yaxis.set_ticks_position('left')<br>cbar.ax.yaxis.set_label_position('left')<br>cbar.ax.xaxis.set_label_position('bottom')<br>ax2.set_title(u'Подпись сверху')<br>ax2.grid(True)<br><br>cmap = mpl.cm.get_cmap('Spectral', len(bounds)-1)<br>cmap.set_over('white')<br>cmap.set_under('grey')<br># ---------------------------------------------------<br><br>ax3 = fig.add_subplot(122)<br>bbox = ax3.get_position()<br>rect = list(bbox.bounds)<br>rect[1] = rect[1] + rect[3] + 0.04<br>rect[3] = 0.025<br>print('Rect:', rect)<br>cax = fig.add_axes(rect)<br>cs = ax3.pcolor(a, cmap=cmap,<br>            vmin=bounds[0], vmax=bounds[-1])<br># В методе pcolor/pcolormesh/imshow<br>#присваиваем пользовательские границы цветов norm<br>cbar = fig.colorbar(cs, ax=ax3, cax=cax,<br>                            ticks=bounds,<br>                            extend='both',<br>                            extendfrac='auto',<br>                            orientation='horizontal',<br>                            drawedges=True)<br><br>ax3.xaxis.set_label_position('bottom')<br>ax3.set_title(u'Подпись снизу',<br>                position=(0.5, -0.150))<br>cbar.ax.xaxis.set_label_position('top')<br>cbar.ax.xaxis.set_ticks_position('top')<br>cbar.ax.set_ylabel(u'Левая подпись цветовой шкалы OY',<br>                            rotation=90, labelpad=22)<br>cbar.ax.set_xlabel(u'Подпись цветовой шкалы')<br><br>ax3.grid(True)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_3.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Деления цветовой шкалы</h4>
+                            <p>
+                                Как и для других axes объектов с цветовой шкалой можно 
+                                работать через методы "set-get". Так как для работы с делениями 
+                                colorbar доступны методы, аналогичные для axes и axis, 
+                                то можно управлять положением делений и их подписями на 
+                                шкале разными методами.
+                            </p>
+                            <hr>
+                            <p>Здесь <b class="red">cbar=fig.colorbar(cs, cax=cax, ax=ax)</b></p>
+                            <hr>
+                            <p>Например, так:</p>
+                            <ul>
+                                <li><b class="red">cbar.ax.set_ylabel()</b></li>
+                                <li><b class="red">cbar.ax.set_yticklabels()</b></li>
+                                <li><b class="red">cbar.ax.set_yticks()</b></li>
+                            </ul>
+                            <p>
+                                Или воспользоваться методами <b class="red">xaxis/yaxis</b>:
+                            </p>
+                            <ul>
+                                <li><b class="red">cbar.ax.yaxis.set_ticks_position()</b></li>
+                                <li><b class="red">cbar.ax.yaxis.set_label_position()</b></li>
+                                <li><b class="red">cbar.ax.xaxis.set_ticks_position()</b></li>
+                                <li><b class="red">cbar.ax.xaxis.set_label_position()</b></li>
+                            </ul>
+                            <p>
+                                С помощью локатеров и форматтеров:
+                            </p>
+                            <ul>
+                                <li><b class="red">cbar.ax.xaxis.set_major_locator()</b></li>
+                                <li><b class="red">cbar.ax.xaxis.set_major_formatter()</b></li>
+                                <li><b class="red">cbar.ax.xaxis.set_minor_locator()</b></li>
+                                <li><b class="red">cbar.ax.xaxis.set_minor_formatter()</b></li>
+                            </ul>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import numpy as np<br>import matplotlib.pyplot as plt<br>import matplotlib as mpl<br><br>a = np.random.random(100)*10.<br>a = a.reshape(10,10)<br><br>fig = plt.figure()<br>#------------------------------------------------------<br><br>ax2 = fig.add_subplot(121)<br>print(ax2)<br>bbox = ax2.get_position()<br>rect = list(bbox.bounds)<br>rect[0] = rect[0] - 0.035<br>rect[2] = 0.02<br>cax = fig.add_axes(rect)<br><br>N = 7<br>bounds = np.linspace(0., 10., N+1)<br>print('Subplot 1 bounds:', bounds)<br><br>cmap = mpl.cm.get_cmap('rainbow', len(bounds)-1)<br>cmap.set_over('white')<br>cmap.set_under('grey')<br><br>cs = ax2.pcolor(a, cmap=cmap,<br>                vmin=bounds[0], vmax=bounds[-1])<br># Ставим границы для шкалы vmin и vmax.<br>cbar = fig.colorbar(cs, cax=cax, ax=ax2,<br>                            ticks=bounds,<br>                            drawedges=True,<br>                            extend='both',<br>                            extendfrac='auto')<br>cbar.ax.set_ylabel(u'Цвета радуги 1',<br>                    rotation=90, labelpad=10)<br>ax2.yaxis.set_ticks_position('right')<br>cbar.ax.yaxis.set_label_position('left')<br>cbar.ax.yaxis.set_ticks_position('left')<br><br>ax2.set_title(u'Шкала слева')<br>ax2.grid(True)<br>#---------------------------------------------<br><br>ax1 = fig.add_subplot(122)<br><br>bounds = np.linspace(0., 10., N+1)<br>cmap = mpl.cm.get_cmap('rainbow', len(bounds)-1)<br>cmap.set_over('white')<br>cmap.set_under('grey')<br><br>cs = ax1.pcolor(a, cmap=cmap,<br>                vmin=bounds[0], vmax=bounds[-1])<br># Ставим границы для шкалы vmin и vmax.<br>cbar = fig.colorbar(cs, ax=ax1,<br>                    ticks=bounds,<br>                    drawedges=True,<br>                    extend='both',<br>                    extendfrac='auto')<br>cbar.ax.set_ylabel(u'Цвета радуги 2',<br>            rotation=270, labelpad=10)<br>cbar_yticks = cbar.ax.get_yticks()<br>new_yticks = cbar_yticks + (1./((len(bounds)-1)*2))<br>print('new_yticks', new_yticks, len(new_yticks))<br><br>cbar.set_ticks(10.*new_yticks)<br>cbar.set_ticklabels([u'Ф', u'С', u'Г',<br>                u'З', u'Ж', u'О', u'К', u'Б'])<br><br>ax1.set_title(u'Шкала справа')<br>ax1.grid(True)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_4.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Особенности в отображении цветовых шкал разными методами</h4>
+                            <p>
+                                Методы <b class="red">pcolor/pcolormesh</b>, 
+                                <b class="red">imshow</b> и 
+                                <b class="red">contour/contourf</b> 
+                                немного по-разному отображают цветовую шкалу.
+                                 В методах pcolor и imshow по умолчанию отображается 
+                                 "плавная" шкала, переход от цвета к цвету в них постепенный, 
+                                 а в методах изолиний contour/contourf, наоборот, 
+                                 шкала дискретная с резким изменением цвета при переходе от одного 
+                                 интервала к другому.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib.pyplot as plt<br>import numpy as np<br><br>def m_draw(i):<br>    '''<br>    В зависимости от целого i выбирается метод рисования 2D<br>    '''<br>    if(i == 0):<br>        md = ax.pcolor<br>    elif(i == 1):<br>        md = ax.imshow<br>    elif(i == 2):<br>        md = ax.contour<br>    elif(i == 3):<br>        md = ax.contourf<br>    else:<br>        md = ax.pcolor<br>    return md<br><br>dat = np.random.random(200).reshape(20,10)<br># создаём матрицу значений<br><br>fig, subs = plt.subplots(nrows=2,<br>                ncols=2, sharex=True)<br>titles = ['pcolor', 'imshow',<br>                'contour', 'contourf']<br><br>for i, ax in enumerate(fig.axes):<br>    new_method = m_draw(i)<br>    cs = new_method(dat)<br>    fig.colorbar(cs, ax=ax)<br>    ax.set_title(titles[i])<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_5.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Цветовая шкала в методе <b class="red">pcolor()</b></h4>
+                            <p>
+                                Покажем как можно задать количество цветов для шкалы, 
+                                определить сами цвета и отобразить значения, которые выходят 
+                                за установленные рамки для метода 
+                                <b class="red">pcolor</b> или <b class="red">pcolormesh</b>.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import numpy as np<br>import matplotlib.pyplot as plt<br>import matplotlib as mpl<br><br>a = np.random.random(100)<br>a = a*10.0<br>a = a.reshape(10,10)<br><br>fig = plt.figure(1,(14,4))<br><br>ax = fig.add_subplot(131)<br><br>bounds = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]<br># список числовых границ. Длина N.<br>Обратите внимание шаг регулярный.<br>cpool = ['blue','cyan','green','yellow','pink']<br># список цветов, которые будут отображены между<br>#заданными границами bounds. Длина N-1<br>cmap = mpl.colors.ListedColormap(cpool, 'indexed')<br># Задаём дискретную шкалу цветов из списка cpool<brcs = ax.pcolor(a, cmap=cmap)<br># вызываем метод pcolor.<br>#Вводим пользовательскую раскраску через cmap<br>cbar = fig.colorbar(cs, ticks=bounds)<br># рисуем шкалу colorbar для изображения cs.<br>#В качестве черточек шкалы указываем bounds.<br># ---------------------------------------------------<br><br>ax2 = fig.add_subplot(132)<br><br>bounds = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]<br>cpool = ['blue','cyan','green','yellow','pink']<br>cmap = mpl.colors.ListedColormap(cpool, 'indexed')<br><br>cmap.set_over('red')<br># задаём цвет для значений, выходящих<br>#за рамки границы bounds[-1] (сверху шкалы)<br>cmap.set_under('grey')<br># задаём цвет для значений, выходящих<br>#за рамки границы bounds[0] (снизу шкалы)<br><br>cs = ax2.pcolor(a, cmap=cmap,<br>            vmin=bounds[0], vmax=bounds[-1])<br># Ставим границы для шкалы vmin и vmax.<br>cbar = fig.colorbar(cs, ticks=bounds,<br>                extend='both', extendfrac='auto')<br># Добавим треугольные индикаторы,<br>#которые отражают превышение заданных vmin и vmax<br>kx = ax2.get_xticks()<br># Передаём в kx значения черточек по оси OX xticks<br>print('xticks: ',kx)<br>xlabel = ['one','two','three','four','five','six']<br># список подписей<br>ax2.set_xticks(kx+0.5)<br># Смещаем xticks, чтобы они были<br>#по центру "пикселей" метода pcolor<br>ax2.set_xticklabels(xlabel, rotation=45)<br># Подписываем пользовательскими значениями<br>#черточки оси OX и поворачиваем их на 45 градусов<br>ax2.set_xlim(bounds[0],bounds[-1])<br># Ставим ограничения на область изменения<br>#оси OX (иначе будут белые полосы по краям)<br><br># Аналогично для оси OY<br>ky = ax2.get_yticks()<br>print('yticks: ',ky)<br>ax2.set_yticks(ky+0.5)<br>ax2.set_ylim(bounds[0],bounds[-1])<br>ax2.set_yticklabels(xlabel)<br><br># Рисуем вспомогательную сетку<br>#основных черточек xticks-yticks<br>ax2.grid(True)<br><br>'''<br>    Область 3<br>'''<br><br>ax3 = fig.add_subplot(133)<br><br>bounds = [0.0, 1.0, 4.0, 6.5, 8.0, 10.0]<br># Обратите внимание шаг НЕрегулярный.<br>cpool = ['blue','cyan','green','yellow','pink']<br># список цветов, которые будут отображены между<br>#заданными границами bounds. Длина N-1<br>cmap = mpl.colors.ListedColormap(cpool, 'indexed')<br>cmap.set_over('red')<br>cmap.set_under('grey')<br>norm = mpl.colors.BoundaryNorm(bounds, cmap.N)<br># Ставим границы для цветовых отрезков шкалы<br># cmap.N показывает число цветов-отрезков(прямоугольных)<br>print('cmap.N= ',cmap.N)<br><br>cs = ax3.pcolor(a, cmap=cmap, norm=norm)<br># В методе pcolor/pcolormesh/imshow присваиваем<br>#пользовательские границы цветов norm<br>cbar = fig.colorbar(cs, ticks=bounds,<br>                    extend='both',<br>                    extendfrac='auto',<br>                    spacing ='proportional',<br                    shrink = 0.9)<br># Т.к. список bounds имеет<br>#неравномерный шаг, то ставим<br># spacing='proportional', а не 'uniform',<br>#то есть цветовые отрезки будут пропорциональны<br>#заданым bounds, а не одинаковыми.<br># shrink позволяет пропорционально изменить<br>#шкалу от исходной величины: 0.9 уменьшит<br>#шкалу, а 1.2 - увеличит.<br><br># В качестве подписей можно использовать<br>#любые значения. Пусть по оси OX это<br>#будут значения от 1 до 10<br>kx = np.arange(0,10) # 0 <=    kx  <= 9<br>xlabel = kx + 1      # 1 <= xlabel <= 10<br>ax3.set_xticks(kx+0.5)<br>ax3.set_xticklabels(xlabel)<br><br># А по оси OY будут значения от 0 до 9,<br>#как более принято в Python =)<br>ax3.set_yticks(kx+0.5)<br>ax3.set_yticklabels(kx)<br>ax3.grid(True)<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_6.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Цветовая шкала для метода <b class="red">сontourf()</b></h4>
+                            <p>
+                                Для методов изолиний настройка цветовой шкалы происходит 
+                                немного по-другому. Так как рисуются изолинии, то необходимо 
+                                определить интервалы для их проведения. Шаг может быть равномерным 
+                                (через 4 гПа, например), так и неравномерным. Деления, 
+                                формирующие интервалы, задаются через параметр 
+                                <b class="red">level</b> метода <b class="red">contourf()</b>.
+                            </p>
+                            <button class="accordion">Пример:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import numpy as np<br>import matplotlib.pyplot as plt<br>import matplotlib as mpl<br><br># Создаём массив, который будем отображать<br>a = np.random.random(100)<br>a = a*10.0<br>a = a.reshape(10,10)<br><br>cpool = ['blue','cyan','green','yellow','pink']<br>cmap = mpl.colors.ListedColormap(cpool)<br># Задаём дискретную шкалу цветов из списка cpool<br>cmap.set_over('red')<br># задаём цвет для значений, выходящих за <br>#рамки границы levels[-1] (сверху шкалы)<br>cmap.set_under('grey') <br># задаём цвет для значений, выходящих <br>#за рамки границы levels[0] (снизу шкалы)<br><br># Задаём список границ изолиний.<br>#Причём значения попадают в интервал z1 < z <= z2<br><br>levels = np.linspace(0., 10., len(cpool)+1)<br><br>fig = plt.figure(figsize=(14,4))<br><br>ax1 = fig.add_subplot(131) # Первая ось<br>cs = ax1.contour(a, cmap=cmap, linestyles='dashed')<br># вызываем метод изолиний contour. <br>#Вводим пользовательскую раскраску через cmap.<br>cbar = fig.colorbar(cs, ax=ax1) <br># рисуем шкалу colorbar для изображения cs.<br>ax1.grid(True)<br>ax1.set_title('contour')<br># -----------------------------------------------------------------<br><br>ax2 = fig.add_subplot(132)<br><br>cs = ax2.contourf(a, levels, <br>            cmap=cmap, extend='both') <br># Задаём границы для изолиний levels.<br># Также для метода contour и contourf треугольные <br>#индикаторы, которые отражают превышение заданных <br># границ levels указываются в самом методе contour.<br>cbar = fig.colorbar(cs, ax=ax2, spacing='uniform') <br># Устанавливаем черточки шкалы согласно спискам <br>#уровней изолиний levels.<br># Задаём равномерное распределение <br>#цветовых сегментов шкалы.<br>ax2.grid(True)<br>ax2.set_title('uniform colorbar')<br># -----------------------------------------------------------------<br><br>ax3 = fig.add_subplot(133)<br><br># Обратите внимание шаг НЕрегулярный.<br>levels = [0.0, 1.0, 4.0, 6.5, 8.0, 10.0]<br># len(cpool) = cmap.N<br>norm = mpl.colors.BoundaryNorm(levels, cmap.N)<br># Ставим границы для цветовых отрезков шкалы<br>print('New norm:', norm)<br>print('Number of colors in discrete colormap:', cmap.N)<br><br>cs = ax3.contourf(a, levels, <br>            cmap=cmap, extend='both') <br>cbar = fig.colorbar(cs, ax=ax3, spacing='proportional',<br>                    # сделаем цветовые сегменты шкалы<br>                    #пропоциональными границам levels<br>                    extendfrac='auto',<br>                    # изменим длину треугольных индикаторов<br>                    shrink=0.9,   # уменьшим размер шкалы<br>                    orientation='vertical')<br>                    # можно изменить положение шкалы <br>                    #на горизонтальное (horizontal)<br><br># В качестве подписей можно использовать любые значения.<br>xlabel = np.arange(50.1, 51.1, 0.1) <br># Сделаем подписи произвольных долгот <br>ax3.set_xticklabels(xlabel, rotation=45)<br>ax3.set_xlabel('lon')<br><br>ylabel = np.arange(60.5,65.5,0.5)<br># Сделаем подписи произвольных широт<br>ax3.set_yticklabels(ylabel)<br>ax3.set_ylabel('lat')<br><br>ax3.grid(True)<br>ax3.set_title('proportional colorbar')<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_7.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <h4>Цветовая шкала для метода <b class="red">scatter()</b></h4>
+                            <p>
+                                Нерегулярно расположённые в пространстве данные можно изобразить 
+                                маркерами с помощью метода <b class="red">scatter()</b> с 
+                                добавлением цвета и/или размера в качестве третьей координаты. 
+                                Значения поля нужно указать в качестве массива или списка параметру 
+                                цвета маркеров "c" и/или параметру размера "s". 
+                                Тип цветовой палитры задаётся параметром cmap.
+                            </p>
+                            <button class="accordion">Пример №1:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib as mpl<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>fig = plt.figure()<br><br>x = np.arange(-np.pi, np.pi, 0.1)<br>y = np.exp(x)<br>z = np.sin(x)**2<br><br>ax1 = fig.add_subplot(211)<br>cmap = plt.cm.get_cmap('YlGnBu')<br>sc = ax1.scatter(x, y, c=y, s=35, cmap=cmap)<br>plt.colorbar(sc, ax=ax1)<br>ax1.grid(True)<br><br>ax2 = fig.add_subplot(212)<br>cmap = plt.cm.get_cmap('jet')<br>sc = ax2.scatter(x, z, c=y, vmin=0.,<br>                vmax=25., s=35, cmap=cmap)<br>fig.colorbar(sc, ax=ax2)<br>ax2.grid(True)<br>ax2.set_title(u'Заданная область изменения')<br>print('Min y %.1f' % np.min(y))<br>print('Max y %.1f' % np.max(y))<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_8.png" class="image" height="200" alt="lorem">
+                            </div>
+                            <button class="accordion">Пример №2:</button>
+                            <div class="panel">
+                                <p>
+                                    <pre class="code">import matplotlib as mpl<br>import matplotlib.pyplot as plt<br>import numpy as np<br><br>fig = plt.figure(1, (10, 8))<br><br>N = 100<br>x, y = np.random.rand(2, N)<br>z = np.random.rand(N)<br><br>ax1 = fig.add_subplot(211)<br>cmap = plt.cm.get_cmap('jet')<br>cmap.set_over('w')<br>cmap.set_under('grey')<br><br>sc = ax1.scatter(x, y, c=z,<br>                s=z*100, cmap=cmap)<br>cbar = fig.colorbar(sc, ax=ax1,<br>                    extend='both')<br>ax1.grid(True)<br>ax1.set_title(u'Плавная цветовая шкала для метода scatter')<br><br>ax2 = fig.add_subplot(212)<br><br>#cpool = ['cyan', 'green', 'yellow', 'orange', 'red']<br>cpool = ['#ffffff', '#ffff7f',<br>                '#c0ff00', '#00c300', '#00c3ff']<br>cmap = mpl.colors.ListedColormap(cpool, 'indexed')<br><br>cmap.set_over('r')<br>cmap.set_under('b')<br><br>ticks = np.linspace(0., 1., cmap.N + 1)<br>norm = mpl.colors.BoundaryNorm(ticks, cmap.N)<br><br>sc = ax2.scatter(x, y, c=z,<br>            s=100*z, cmap=cmap, norm=norm)<br>cbar = fig.colorbar(sc, ax=ax2,<br>                    ticks=ticks,<br>                    norm=norm,<br>                    extend='both',<br>                    extendfrac='auto',<br>                    shrink=0.8,<br>                    orientation='horizontal')<br>cbar.set_ticks(ticks)<br>cbar.set_ticklabels(ticks)<br><br>ax2.set_title(u'Дискретная цветовая шкала для метода scatter')<br>ax2.grid(True, color='grey')<br>print('Min y %.1f' % np.min(y))<br>print('Max y %.1f' % np.max(y))<br><br>plt.tight_layout()<br><br>plt.show()</pre>
+                                </p>
+                                <img src="img/matplotlib/p_14/figure_9.png" class="image" height="200" alt="lorem">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
