@@ -724,8 +724,14 @@
                                         <span class="code">statistics.mean()</span> - Среднее арифметическое.
                                     </li>
                                     <li>
+                                        <p>
                                         <span class="code">statistics.harmonic_mean()</span> - Гармоническое среднее.
-                                        <img class="formula" src="img/Harmo.svg" alt="Формула кармонического среднего."> 
+                                        $$ 
+                                        {\displaystyle H(x_{1},\ldots ,x_{n})={\frac {n}
+                                        {{\frac {1}{x_{1}}}+{\frac {1}{x_{2}}}+\cdots +{\frac {1}{x_{n}}}}}=
+                                        {\frac {1}{{\frac {1}{n}}\sum \limits _{i=1}^{n}{\frac {1}{x_{i}}}}}} 
+                                        $$
+                                        </p>
                                     </li>
                                     <li>
                                         <span class="code">statistics.median()</span> - Медиана.
@@ -1371,7 +1377,7 @@
                                         список передаваемых корней:
                                         <br><span class="code">np.poly([-1, 1, 1, 10]) #array([ 1, -11,   9,  11, -10])</span>
                                         Здесь, массив возвращает коэффициенты соответствующие уравнению:
-                                        <img src="img/poli_1.svg" alt="x^4 - 11x^3 + 9x^2 + 11x - 10">
+                                        <p>$$ x^4-11x^3+9x^2+11x-10 $$</p>
                                     </li>
                                     <li>
                                         Функция <b class="red">np.root()</b> вернет все корни многочлена 
@@ -1379,13 +1385,14 @@
                                         <pre class="code">np.roots([1, 4, -2, 3])<br>#array([-4.57974010+0.j,  0.28987005+0.75566815j,<br>        0.28987005-0.75566815j])</pre>
                                     </li>
                                     <li>
-                                        <b class="red">np.polyint()</b> - возвращает коэффициенты 
-                                        проинтегрированного полинома с передаваемыми коэффициентами.
-                                        <br> Например проинтегрированный полином
-                                        <img src="img/poli_2.svg" alt="x^3 + x^2 + x + 1">
-                                        имеет вид <img src="img/poli_2_integr.svg" alt="x^4/4 + x^3/3 + x^2/2 + x + C">,
-                                        где <img src="img/С.svg" alt="C"> обычно равно нулю.
-                                        <pre class="code">np.polyint([1, 1, 1, 1])<br>#array([ 0.25, 0.33333333, 0.5, 1., 0. ])</pre>
+                                        <p>
+                                            <b class="red">np.polyint()</b> - возвращает коэффициенты 
+                                            проинтегрированного полинома с передаваемыми коэффициентами.
+                                            <br> Например проинтегрированный полином
+                                            $x^3+x^2+x+1$ имеет вид $\frac{x^4}{4}+\frac{x^3}{3}+\frac{x^2}{2}+x+C$,
+                                            где $C$ обычно равно нулю.
+                                            <pre class="code">np.polyint([1, 1, 1, 1])<br>#array([ 0.25, 0.33333333, 0.5, 1., 0. ])</pre>
+                                        </p>
                                     </li>
                                     <li>
                                         <b class="red">np.polyder()</b> - производная аналогичная интегрированию:
@@ -5355,5 +5362,16 @@
         </div>
         <script src="script/jquery-3.4.1.js"></script>
         <script src="script/script.js"></script>
+        <script>
+            /* Устанавливаем определители формул */
+            MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']]
+                }
+            };
+        </script>
+        <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
     </body>
 </html>
