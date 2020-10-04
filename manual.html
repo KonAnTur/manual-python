@@ -1518,6 +1518,298 @@
                     </div>
                     <h2 id="16">16. Pandas:</h2>
                     <div class="card">
+                        <div class="text-in-card">
+                            <p>
+                                <b class="red">Pandas</b> — программная 
+                                библиотека на языке Python для обработки и анализа данных. 
+                                Работа pandas с данными строится поверх библиотеки NumPy, 
+                                являющейся инструментом более низкого уровня.
+                                <br><span class="code">import pandas as pd</span>
+                            </p>
+                        </div>
+                        <h3 id="16.1">
+                            <b>16.1 Создание <b class="red">DataFrame</b> и <b class="red">Series</b>:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                Создать <b class="red">DataFrame</b> можно несколькими способами:
+                                <ul>
+                                    <li>
+                                        <pre class="code">dataList = [<br>    { 'date': '2017-07-01', 'value': 100 },<br>    { 'date': '2017-07-02', 'value': 200 },<br>    { 'date': '2017-07-03', 'value': 300 },<br>    { 'date': '2017-07-04', 'value': 400 },<br>    { 'date': '2017-07-05', 'value': 500 },<br>]</pre>
+                                        <span class="code">pd.DataFrame( dataList )</span> - 
+                                        создание DataFrame из списка, 
+                                        элементами которого являются словари
+                                    </li>
+                                    <li>
+                                        <pre class="code">dataDict = [<br>    ( 'date', [ '2017-07-01', '2017-07-02', <br>            '2017-07-03', '2017-07-04', '2017-07-05' ] ),<br>    ( 'value', [ 100, 200, 300, 400, 500 ] )<br>]</pre>
+                                        <span class="code">pd.DataFrame.from_items( dataDict )</span> - 
+                                        то же самое но в другой форме
+                                    </li>
+                                    <li>
+                                        <pre class="code">dataLists = [<br>    ('2017-07-01', 100),<br>    ('2017-07-02', 200),<br>    ('2017-07-03', 300),<br>    ('2017-07-04', 400),<br>    ('2017-07-05', 500),<br>]<br><br>headers = [ 'date', 'value' ]</pre>
+                                        <span class="code">pd.DataFrame.from_records(dataLists, columns = headers)</span> - 
+                                        создание DataFrame из листа кортежей с указанием заголовков
+                                    </li>
+                                </ul>
+                                <br>
+                                <p>Создание <b class="red">Series</b> (DataFrame из одного столбца)</p>
+                                <ul>
+                                    <li>
+                                        <pre class="code">    dataNP = np.random.rand( 3 )<br>    dataNP<br>    pd.Series(dataNP, index = [ 'first', 'second', 'third' ])</pre>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3 id="16.2">
+                            <b>16.2 Импорт данных для DataFrame из файлов:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <span class="code">
+                                    data = pd.read_csv('train.csv', delimiter = ',', 
+                                    dtype = {'SibSp': str, 'Parch': str} )
+                                </span> - где 'train.csv' это имя файла с которого мы будем считывать информацию,
+                                delimiter это разделитель данных, который мы используем при считывании,
+                                dtype это явное указание типов данных, которые мы ожидаем увидеть.
+                            </p>
+                        </div>
+                        <h3 id="16.3">
+                            <b>16.3 Поэлементные действия с DataFrame:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Сложение (<b class="red">.add()</b>): <span class="code">df1.add(df2)</span>
+                                    </li>
+                                    <li>
+                                        Разность (<b class="red">.sub()</b>): <span class="code">df1.sub(df2)</span>
+                                    </li>
+                                    <li>
+                                        Перемножение (<b class="red">.mul()</b>): <span class="code">df1.mul(df2, fill_value = 0)</span>
+                                    </li>
+                                    <li>
+                                        Поэлементное деление (<b class="red">.div()</b>): <span class="code">df1.div(df2, fill_value = 17)</span>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3 id="16.4">
+                            <b>16.4 Применение функций:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Применение функции к строке или столбцу 
+                                        (<b class="red">.apply()</b>):
+                                        <span class="code">
+                                            data.apply( ageGroup, axis = 1 )
+                                        </span> - применяем функцию ageGroup по 1-й оси
+                                    </li>
+                                    <li>
+                                        Применение функции к каждой ячейке отдельно 
+                                        (<b class="red">.apply()</b>):
+                                        <span class="code">
+                                            df.apply( lambda x: x**2 )
+                                        </span> - применяем лямбда функцию к всем ячейкам
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3 id="16.5">
+                            <b>16.5 Сохранение DataFrame:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Сохранение в <b class="red">CSV</b> файл:
+                                        <span class="code">
+                                            data.to_csv('train_modified.csv', sep = ';', na_rep = '0', columns = ['Survived', 'ageGroup'], index = False)
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Сохранение в <b class="red">JSON</b> файл:
+                                        <span class="code">
+                                            data.to_json('train_json_index.json', orient = 'index')
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Сохранение в <b class="red">Exel</b> файл:
+                                        <span class="code">
+                                            data.to_excel('train_modified.xlsx', sheet_name = 'data')
+                                        </span>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3 id="16.6">
+                            <b>16.6 Типовые действия с DataFrame:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <ul>
+                                <li>
+                                    Добавить новый столбец:
+                                    <span class="code">
+                                        data['nameLength'] = data['Name']
+                                    </span>
+                                </li>
+                                <li>
+                                    Изменить название столбцов:
+                                    <span class="code">
+                                        data.rename( columns = { 'Name': 'FIO' }, inplace=True )
+                                    </span>
+                                    или вот так
+                                    <span class="code">
+                                        data.columns = [ 'ID', 'Survived', 'Class', 'FIO', 'Gender', 'Age', 'SibSp', 'Parch', 'Ticker number', 'Fare', 'Cabin', 'Emnarked' ]
+                                    </span>
+                                </li>
+                                <li>
+                                    Выбрать необходимые строки:
+                                    <span class="code">
+                                        data.iloc[[1, 2, 3, 44]]
+                                    </span>
+                                </li>
+                                <li>
+                                    Проиндексировать строки:
+                                    <span class="code">
+                                        dataNew.reset_index(inplace=True)
+                                    </span>
+                                </li>
+                                <li>
+                                    Фильтр строк:
+                                    <span class="code">
+                                        mask = ( data.PassengerId % 2 == 0 )
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 id="16.7">
+                            <b>16.7 Действия со строками:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <ul>
+                                <li>
+                                    Вывод строк с пустым значением Age:
+                                    <span class="code">
+                                        data.loc[ pd.isnull( data['Age'] ) ].head()
+                                    </span>
+                                    Или наоборот, без пустых значений:
+                                    <span class="code">
+                                        data.loc[ ~pd.isnull( data['Age'] ) ].head()
+                                    </span>
+                                </li>
+                                <li>
+                                    Замена пустых значений на медиану:
+                                    <span class="code">
+                                        medianAge = data['Age'].median()
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 id="16.8">
+                            <b>16.8 Сортировка:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <ul>
+                                <li>
+                                    Сортировка по индексу:
+                                    <span class="code">
+                                        data.sort_index( ascending = False ).head()
+                                    </span>
+                                </li>
+                                <li>
+                                    Сортировка по значению:
+                                    <span class="code">
+                                        data.sort_values( by = 'Age', ascending = False ).head()
+                                    </span>
+                                </li>
+                                <li>
+                                    Сортировка по значению нескольких столбцов:
+                                    <span class="code">
+                                        data.sort_values( by = ['Sex', 'Age'], ascending = [True, False] ).head()
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 id="16.9">
+                            <b>16.9 Агрегация и группировка:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Подсчёт количества строк <b class="red">.count()</b>:
+                                        <span class="code">
+                                            data['Age'].count()
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Сумма всех значений <b class="red">.sum()</b>:
+                                        <span class="code">
+                                            data.sum()
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Среднее значение <b class="red">.mean()</b>:
+                                        <span class="code">
+                                            data.mean()
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Комбинация функций <b class="red">.aggregate()</b>:
+                                        <span class="code">
+                                            data.aggregate(['sum', 'mean'])
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Агрегация по столбцам (agg - синоним aggregate) <b class="red">.agg()</b>:
+                                        <span class="code">
+                                            data.agg({'Age': ['mean'], 'Survived': ['mean', 'sum']})
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Группировка по столбцу <b class="red">.groupby()</b>:
+                                        <span class="code">
+                                            data.groupby('Sex')
+                                        </span>
+                                    </li>
+                                    <li>
+                                        Агрегация по столбцам (agg - синоним aggregate) <b class="red">.agg()</b>:
+                                        <span class="code">
+                                            data.agg({'Age': ['mean'], 'Survived': ['mean', 'sum']})
+                                        </span>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <h3 id="16.10">
+                            <b>16.10 Объединение DataFrame:</b> 
+                        </h3>
+                        <div class="text-in-card">
+                            <p>
+                                <ul>
+                                    <li>
+                                        Объединение DataFrame путем обычного "склеивания"
+                                        <span class="code">
+                                            pd.concat([df1, df2])
+                                        </span>
+                                        Или горизонтальное объединение
+                                        <span class="code">
+                                            pd.concat([df1, df2], axis = 1)
+                                        </span>
+                                    </li>
+                                    <li> 
+                                        <b class="red">Join</b> - объединение по индексу 
+                                        (для join надо указать lsuffix и rsuffix)
+                                        <span class="code">
+                                            df1.join(df2, how = 'left', lsuffix = '_df1', rsuffix = '_df2')
+                                        </span>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
